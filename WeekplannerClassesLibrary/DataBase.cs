@@ -116,7 +116,39 @@ namespace WeekplannerClassesLibrary
             
             return null;
         }
-        
+
+        public int GetUserId(User user)
+        {
+            
+            MakeConnection();
+            string query = "SELECT Id FROM Users WHERE Email = @email";
+            SqlCommand command = new(query, conn);
+            command.Parameters.AddWithValue("@email", user.GetEmail());
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                int id = Convert.ToInt32(reader["Id"]);
+                return id;
+            }
+            EndConnection();
+            return -1;
+            
+        }
+
+        public void AddActivityToUserWTTime(User user, Activiteit activiteit)
+        {
+            int id = GetUserId(user);
+            MakeConnection();
+            string query = "INSERT INTO Activity(Type, Name, Description, Date, UserId) VALUES(@type, @name, @description, @date, @userid)";
+            SqlCommand command = new(query,conn);
+            command.Parameters.AddWithValue("@type", activiteit.Type);
+            command.Parameters.AddWithValue("@name", activiteit.Name);
+            command.Parameters.AddWithValue("@description", activiteit.Description);
+            command.Parameters.AddWithValue("@date", activiteit.Date);
+            command.Parameters.AddWithValue("@userid", id);
+            command.ExecuteNonQuery();
+            EndConnection();
+        }
     }
 
 }
