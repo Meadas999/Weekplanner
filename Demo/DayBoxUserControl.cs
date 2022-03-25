@@ -15,7 +15,8 @@ namespace WeekplannerClassesLibrary
     {
         string Month;
         string Year;
-        public DayBoxUserControl(int month, int year)
+        User user;
+        public DayBoxUserControl(User user,int month, int year)
         {
             InitializeComponent();
             if (month < 10)
@@ -24,6 +25,22 @@ namespace WeekplannerClassesLibrary
                 Year = year.ToString();
             }
             else if (month >=10)
+            {
+                Month = month.ToString();
+                Year = year.ToString();
+            }
+            this.user = user;
+        }
+
+        public DayBoxUserControl(int month, int year)
+        {
+            InitializeComponent();
+            if (month < 10)
+            {
+                Month = 0.ToString() + month.ToString();
+                Year = year.ToString();
+            }
+            else if (month >= 10)
             {
                 Month = month.ToString();
                 Year = year.ToString();
@@ -59,7 +76,7 @@ namespace WeekplannerClassesLibrary
         private void DayBoxUserControl_DoubleClick(object sender, EventArgs e)
         {
             string date = $"{Year}/{Month}/{GiveDay()}";
-            Activity activity = new(MakeDate(date));
+            Activity activity = new(MakeDate(date), user);
             activity.ShowDialog();
         }
     }

@@ -123,7 +123,7 @@ namespace WeekplannerClassesLibrary
             MakeConnection();
             string query = "SELECT Id FROM Users WHERE Email = @email";
             SqlCommand command = new(query, conn);
-            command.Parameters.AddWithValue("@email", user.GetEmail());
+            command.Parameters.AddWithValue("@email", user.GetEmail().ToString());
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -144,7 +144,7 @@ namespace WeekplannerClassesLibrary
             command.Parameters.AddWithValue("@type", activiteit.Type);
             command.Parameters.AddWithValue("@name", activiteit.Name);
             command.Parameters.AddWithValue("@description", activiteit.Description);
-            command.Parameters.AddWithValue("@date", activiteit.Date);
+            command.Parameters.AddWithValue("@date", activiteit.DateTime); 
             command.Parameters.AddWithValue("@userid", id);
             command.ExecuteNonQuery();
             EndConnection();

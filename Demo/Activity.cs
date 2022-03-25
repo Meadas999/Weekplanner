@@ -20,10 +20,11 @@ namespace WeekplannerClassesLibrary
             this.user = user;
         }
 
-        public Activity(DateTime dateTime)
+        public Activity(DateTime dateTime, User user)
         {
             InitializeComponent();
             date_Picker.Value = dateTime;
+            this.user = user;
             
 
         }
@@ -42,8 +43,8 @@ namespace WeekplannerClassesLibrary
 
         private void add_Btn_Click(object sender, EventArgs e)
         {
-            DateOnly datum = DateOnly.FromDateTime(date_Picker.Value);
-            Activiteit activity = new(TypeCB.Text, titel_TB.Text, beschrijving_RTB.Text, datum);
+            /*DateOnly datum = DateOnly.FromDateTime(date_Picker.Value);*/
+            Activiteit activity = new(TypeCB.Text, titel_TB.Text, beschrijving_RTB.Text, date_Picker.Value);
             DB.AddActivityToUserWTTime(user, activity);
             user.activitys.Add(activity);
             this.Close();

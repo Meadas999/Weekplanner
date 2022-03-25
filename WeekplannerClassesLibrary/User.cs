@@ -21,12 +21,12 @@ namespace WeekplannerClassesLibrary
             this.Length = length;
         }
 
-        public void MakeActivity(string type, string name, string description, DateTime reminder, DateTime time, Color color)
-        {
-            var x = new Activiteit(type, name, description, reminder, time, color);
-            activitys.Add(x);
+        //public void MakeActivity(string type, string name, string description, DateTime reminder, DateTime time, Color color)
+        //{
+        //    var x = new Activiteit(type, name, description, reminder, time, color);
+        //    activitys.Add(x);
             
-        }
+        //}
         public double GetWeight()
         {
             return Weight;

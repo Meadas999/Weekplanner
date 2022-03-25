@@ -70,7 +70,7 @@ namespace WeekplannerClassesLibrary
         {
             for (int i = 1; i <= days; i++)
             {
-                DayBoxUserControl DaysBox = new DayBoxUserControl(Month,Year);
+                DayBoxUserControl DaysBox = new DayBoxUserControl(this.User,Month,Year);
                 DaysBox.days(i);
                 DaysBox.Tag = i;
                 DayContainer.Controls.Add(DaysBox);
