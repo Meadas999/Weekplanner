@@ -15,6 +15,8 @@ namespace WeekplannerClassesLibrary
     {
         string Month;
         string Year;
+        string date; 
+        DataBase db =new();
         User user;
         public DayBoxUserControl(User user,int month, int year)
         {
@@ -30,6 +32,8 @@ namespace WeekplannerClassesLibrary
                 Year = year.ToString();
             }
             this.user = user;
+            
+           
         }
 
         public DayBoxUserControl(int month, int year)
@@ -45,9 +49,21 @@ namespace WeekplannerClassesLibrary
                 Month = month.ToString();
                 Year = year.ToString();
             }
-            
+    
         }
 
+        public void ShowEvents()
+        {
+            string dateofbox = $"{Year}/{Month}/{GiveDay()}";
+            if (db.GetAmountActivitysDay(user, MakeDate(dateofbox)) > 0)
+            {
+                events_Lbl.Text = $"{db.GetAmountActivitysDay(user, MakeDate(dateofbox))}  event(s)";
+            }
+            else
+            {
+                events_Lbl.Text = "";
+            }
+        }
 
         private void DayBoxUserControl_Load(object sender, EventArgs e)
         {
@@ -56,7 +72,7 @@ namespace WeekplannerClassesLibrary
         public DateTime MakeDate(string Givendate)
         { 
             DateTime date = Convert.ToDateTime(Givendate);
-            return date;
+            return date.Date;
         }
         public string GiveDay()
         {
@@ -75,9 +91,16 @@ namespace WeekplannerClassesLibrary
 
         private void DayBoxUserControl_DoubleClick(object sender, EventArgs e)
         {
-            string date = $"{Year}/{Month}/{GiveDay()}";
+            date = $"{Year}/{Month}/{GiveDay()}";
             Activity activity = new(MakeDate(date), user);
             activity.ShowDialog();
+        }
+
+        private void events_Lbl_Click(object sender, EventArgs e)
+        {
+            date = $"{Year}/{Month}/{GiveDay()}";
+            DagOverzicht dagOverzicht = new(MakeDate(date), user);
+            dagOverzicht.ShowDialog();  
         }
     }
 }

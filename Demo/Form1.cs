@@ -73,6 +73,7 @@ namespace WeekplannerClassesLibrary
                 DayBoxUserControl DaysBox = new DayBoxUserControl(this.User,Month,Year);
                 DaysBox.days(i);
                 DaysBox.Tag = i;
+                DaysBox.ShowEvents();
                 DayContainer.Controls.Add(DaysBox);
             }
         }

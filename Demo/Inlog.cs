@@ -20,7 +20,8 @@ namespace WeekplannerClassesLibrary
 
         private void Inlog_Load(object sender, EventArgs e)
         {
-
+            username_TB.Text = "jeans123@hotmail.com";
+            password_Tb.Text = "Amier123";
         }
 
         private void register_btn_Click(object sender, EventArgs e)
@@ -33,9 +34,10 @@ namespace WeekplannerClassesLibrary
 
         private void Inlogbtn_Click(object sender, EventArgs e)
         {
-            if (DB.CheckInlogDataCorrect(username_TB.Text.ToLower(), password_Tb.Text))
+            User user = DB.FindUserByEmailAndPassword(username_TB.Text.ToLower(), password_Tb.Text);
+            if (user != null)
             {
-                Form1 MainMenu = new(DB.LogIn(username_TB.Text.ToLower()));
+                Form1 MainMenu = new(user);
                 this.Hide();
                 MainMenu.ShowDialog();
                 this.Close();

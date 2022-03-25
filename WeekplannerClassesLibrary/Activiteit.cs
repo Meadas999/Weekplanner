@@ -9,16 +9,17 @@ namespace WeekplannerClassesLibrary
 {
     public class Activiteit
     {
+        public int Id;
         public string Type;
         public string Name;
         public string Description;
         public DateTime Reminder;
         public DateTime DateTime;
-        public DateOnly Date;
         public Color Color;
 
-        public Activiteit(string type, string name, string description, DateTime reminder, DateTime datetime)
+        public Activiteit(int id, string type, string name, string description, DateTime reminder, DateTime datetime)
         {
+            this.Id = id;
             this.Type = type;
             this.Name = name;
             this.Description = description;
@@ -26,8 +27,18 @@ namespace WeekplannerClassesLibrary
             this.DateTime = datetime;
         }
 
+        public Activiteit(int id,string type, string name, string description, DateTime datetime)
+        {
+            this.Id = id;
+            this.Type = type;
+            this.Name = name;
+            this.Description = description;
+            this.DateTime = datetime;
+        }
+
         public Activiteit(string type, string name, string description, DateTime datetime)
         {
+         
             this.Type = type;
             this.Name = name;
             this.Description = description;
@@ -65,6 +76,10 @@ namespace WeekplannerClassesLibrary
             // TODO: Database veranderen
         }
 
+        public override string ToString()
+        {
+            return $"{Type}/{Name}/{Description}/{DateTime.ToString()}/";
+        }
 
     }
 }

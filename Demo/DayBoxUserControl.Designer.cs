@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.DaysLbl = new System.Windows.Forms.Label();
+            this.events_Lbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // DaysLbl
@@ -40,11 +41,22 @@
             this.DaysLbl.TabIndex = 0;
             this.DaysLbl.Text = "Days";
             // 
+            // events_Lbl
+            // 
+            this.events_Lbl.AutoSize = true;
+            this.events_Lbl.Location = new System.Drawing.Point(26, 47);
+            this.events_Lbl.Name = "events_Lbl";
+            this.events_Lbl.Size = new System.Drawing.Size(32, 15);
+            this.events_Lbl.TabIndex = 1;
+            this.events_Lbl.Text = "label";
+            this.events_Lbl.Click += new System.EventHandler(this.events_Lbl_Click);
+            // 
             // DayBoxUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.events_Lbl);
             this.Controls.Add(this.DaysLbl);
             this.Name = "DayBoxUserControl";
             this.Size = new System.Drawing.Size(184, 91);
@@ -58,5 +70,6 @@
         #endregion
 
         private Label DaysLbl;
+        private Label events_Lbl;
     }
 }
