@@ -30,8 +30,11 @@ namespace WeekplannerClassesLibrary
 
         private void DagOverzicht_Load(object sender, EventArgs e)
         {
-
-            //activiteiten_LB.DataSource = db.GetEventsInfoDay(TUser, Date);
+            if (db.GetEventsInfoDay(TUser, Date).Count > 0)
+            {
+                activiteiten_LB.DataSource = db.GetEventsInfoDay(TUser, Date);
+            }
+            
         }
     }
 }

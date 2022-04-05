@@ -168,39 +168,25 @@ namespace WeekplannerClassesLibrary
             return amount;
         }
 
-        //public List<Activiteit> GetEventsInfoDay(User user, DateTime day)
-        //{
-        //    List<Activiteit> list = new List<Activiteit>();
-        //    int userid = GetUserId(user);
-        //    int rows = GetAmountActivitysDay(user, day)-1;
-        //    MakeConnection();
-        //    string query = "SELECT * FROM Activity WHERE Date = @date AND UserId = @userid";
-        //    SqlCommand command = new(query, conn);
-        //    command.Parameters.AddWithValue("@date", day);
-        //    command.Parameters.AddWithValue("@userid", userid);
-        //    SqlDataReader reader = command.ExecuteReader();
-        //    if (reader.HasRows)
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            var act = new List<Activiteit>();
-        //            for (int i = 0; i <= rows; i++)
-        //            {
-        //                act.Add(new Activiteit(reader["ROW_NUMBER"],reader["Type"].ToString(), reader["Name"].ToString(), reader["Description"].ToString(), Convert.ToDateTime(reader["Date"])));
-        //             }
-        //            EndConnection();
-        //            list.AddRange(act);
-        //            return list;
-        //        }
-        //    }
-
-        //    EndConnection();p
-        //    return null;
-
-
-        //}
-
-
+        public List<Activiteit> GetEventsInfoDay(User user, DateTime day)
+        {
+            List<Activiteit> list = new List<Activiteit>();
+            int userid = GetUserId(user);
+            MakeConnection();
+            string query = "SELECT * FROM Activity WHERE Date = @date AND UserId = @userid";
+            SqlCommand command = new(query, conn);
+            command.Parameters.AddWithValue("@date", day);
+            command.Parameters.AddWithValue("@userid", userid);
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                 list.Add(new Activiteit(reader["Type"].ToString(), reader["Name"].ToString(), reader["Description"].ToString(), Convert.ToDateTime(reader["Date"])));
+                }
+            }
+            EndConnection();
+            return list;
+        }
     }
-
 }
