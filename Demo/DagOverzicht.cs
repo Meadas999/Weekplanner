@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DALmssqlServer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DALmssqlServer;
 
 namespace WeekplannerClassesLibrary
 {
@@ -14,7 +16,7 @@ namespace WeekplannerClassesLibrary
     {
         DateTime Date;
         User TUser;
-        DataBase db = new();
+        ActiviteitContainer AC = new (new ActiviteitenMSSQLDAL());
         public DagOverzicht(DateTime date, User user)
         {
             InitializeComponent();
@@ -30,9 +32,9 @@ namespace WeekplannerClassesLibrary
 
         private void DagOverzicht_Load(object sender, EventArgs e)
         {
-            if (db.GetEventsInfoDay(TUser, Date).Count > 0)
+            if (AC.GetEventsInfoDay(TUser, Date).Count > 0)
             {
-                activiteiten_LB.DataSource = db.GetEventsInfoDay(TUser, Date);
+                activiteiten_LB.DataSource = AC.GetEventsInfoDay(TUser, Date);
             }
             
         }

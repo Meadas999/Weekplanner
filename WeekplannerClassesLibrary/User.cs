@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InterfaceLibrary;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace WeekplannerClassesLibrary
 {
     public class User : UserBase
     {
-        protected double Weight { get; set; }
-        protected int Length { get; set; }
+        public double Weight { get; set; }
+        public int Length { get; set; }
         public List<Activiteit> activitys = new List<Activiteit>();
         
 
@@ -20,22 +21,26 @@ namespace WeekplannerClassesLibrary
             this.Weight = weight;
             this.Length = length;
         }
-
+        public User(UserDTO userDTO) : base(userDTO.FirstName, userDTO.LastName, userDTO.Email, userDTO.Password, userDTO.BirthDate)
+        {
+            this.Weight = userDTO.Weight;
+            this.Length = userDTO.Length;
+        }
         //public void MakeActivity(string type, string name, string description, DateTime reminder, DateTime time, Color color)
         //{
         //    var x = new Activiteit(type, name, description, reminder, time, color);
         //    activitys.Add(x);
-            
+
         //}
-        public double GetWeight()
+
+        public UserDTO ToDTO()
         {
-            return Weight;
+            return new UserDTO(this.FirstName, this.LastName, this.Email, this.Password, this.BirthDate, this.Weight, this.Length);
         }
-        public int GetLength()
-        {
-            return Length;
-        }
-       
+
+        
+        
+
 
         public void UpdateInfo(double? changedweight = null, int? changedlenght = null, DateTime? changedage = null)
         {

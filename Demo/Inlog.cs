@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DALmssqlServer;
 
 namespace WeekplannerClassesLibrary
 {
     public partial class Inlog : Form
     {
-        DataBase DB = new();
+        UserContainer UC = new(new UserMSSQLDAL());
         public Inlog()
         {
             InitializeComponent();
@@ -31,10 +32,10 @@ namespace WeekplannerClassesLibrary
             register.ShowDialog();
             this.Close();
         }
-
+        
         private void Inlogbtn_Click(object sender, EventArgs e)
         {
-            User user = DB.FindUserByEmailAndPassword(username_TB.Text.ToLower(), password_Tb.Text);
+            User user = UC.FindUserByEmailAndPassword(username_TB.Text.ToLower(), password_Tb.Text);
             if (user != null)
             {
                 Form1 MainMenu = new(user);

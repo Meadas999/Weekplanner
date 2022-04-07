@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DALmssqlServer\DALmssqlServer.csproj" />
     <ProjectReference Include="..\WeekplannerClassesLibrary\WeekplannerClassesLibrary.csproj" />
     <ProjectReference Include="..\WeekplannerUnitTester\WeekplannerUnitTester.csproj" />
   </ItemGroup>

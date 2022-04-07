@@ -9,16 +9,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using DALmssqlServer;
 namespace WeekplannerClassesLibrary
 {
     public partial class Form1 : Form
     {
        
         DateTime now = DateTime.Now;
-        DataBase DB = new();
         User User;
-        
+        UserContainer UC = new UserContainer(new UserMSSQLDAL());
+
         int Month;
         int Year;
         
@@ -35,7 +35,7 @@ namespace WeekplannerClassesLibrary
 
         private void button1_Click(object sender, EventArgs e)
         {
-      
+        
 
         }
 

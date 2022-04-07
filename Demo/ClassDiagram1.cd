@@ -1,2 +1,100 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WeekplannerClassesLibrary.Activity">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="add_Btn" Hidden="true" />
+      <Field Name="beschrijving_RTB" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Field Name="date_Picker" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="label2" Hidden="true" />
+      <Field Name="label3" Hidden="true" />
+      <Field Name="label4" Hidden="true" />
+      <Field Name="time_Picker" Hidden="true" />
+      <Field Name="titel_Lbl" Hidden="true" />
+      <Field Name="titel_TB" Hidden="true" />
+      <Field Name="TypeCB" Hidden="true" />
+      <Field Name="user" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAAAAAQAACQAABIAAACAAACCAFAAAAIAAAAAAAAEARA=</HashCode>
+      <FileName>Activity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeekplannerClassesLibrary.DagOverzicht">
+    <Position X="8" Y="0.5" Width="2.25" />
+    <Members>
+      <Method Name="activiteiten_LB_SelectedIndexChanged" Hidden="true" />
+      <Method Name="DagOverzicht_Load" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAACACCUAAAAAACAAAACAAAAAAABAAAAAAQAAAA=</HashCode>
+      <FileName>DagOverzicht.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeekplannerClassesLibrary.DayBoxUserControl">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="components" Hidden="true" />
+      <Field Name="DaysLbl" Hidden="true" />
+      <Field Name="events_Lbl" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>QAAAAAAABCAQAAAAAACQBAACAAAAAAAEAEAABUAIIQA=</HashCode>
+      <FileName>DayBoxUserControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeekplannerClassesLibrary.Form1">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYARAAAAxiAgAAABBACCJAACABAQgAAEAGQAAECgADA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeekplannerClassesLibrary.Inlog">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Method Name="Inlog" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AgAAQAAAgCAAAAEBAASAAAACAAAABAAEAAAAgAAAARA=</HashCode>
+      <FileName>Inlog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeekplannerClassesLibrary.Register">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIgAgAAAgGAADAIIAACAAAgiCAAgAAAAIAAAJAIEABE=</HashCode>
+      <FileName>Register.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeekplannerClassesLibrary.VakjesUserControl">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAgACAAAAA=</HashCode>
+      <FileName>VakjesUserControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeekplannerClassesLibrary.Activiteit">
+    <Position X="11.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WeekplannerClassesLibrary.DataBase">
+    <Position X="7" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WeekplannerClassesLibrary.User">
+    <Position X="11.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WeekplannerClassesLibrary.UserBase">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

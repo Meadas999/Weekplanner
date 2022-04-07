@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DALmssqlServer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,8 @@ namespace WeekplannerClassesLibrary
     public partial class Activity : Form
     {
         User user;
-        DataBase DB = new DataBase();
+        Database db = new(); 
+        ActiviteitContainer AC = new ActiviteitContainer(new ActiviteitenMSSQLDAL());
         public Activity(User user)
         {
             InitializeComponent();
@@ -45,7 +47,7 @@ namespace WeekplannerClassesLibrary
         {
             /*DateOnly datum = DateOnly.FromDateTime(date_Picker.Value);*/
             Activiteit activity = new(TypeCB.Text, titel_TB.Text, beschrijving_RTB.Text, date_Picker.Value);
-            DB.AddActivityToUserWTTime(user, activity);
+            AC.AddActivityToUserWTTime(user, activity);
             user.activitys.Add(activity);
             this.Close();
         }

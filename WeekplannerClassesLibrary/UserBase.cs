@@ -2,11 +2,12 @@
 {
     public abstract class UserBase
     {
-        protected string FirstName { get; }
-        protected string LastName { get; }
-        protected string Email { get; }
-        protected DateTime BirthDate { get; set; }
-        protected string Password { get;}
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Password { get; set; }
+        //FIXME: Password should be encrypted.
         
         public UserBase(string firstname,string lastname, string email, string password, DateTime birthdate)
         {
@@ -19,34 +20,6 @@
 
         }
 
-        public string GetEmail()
-        {
-            return Email;
-        }
-
-        public string GetFullName()
-        {
-            return $"{this.FirstName}  {this.LastName}";
-        }
-
-        public string GetFirstName()
-        { 
-            return FirstName;
-        }
-
-        public string GetLastName()
-        { 
-            return LastName;
-        }
-
-        public string GetPassword()
-        { 
-            return Password;
-        }
-
-        public DateTime GetBirthDate()
-        {
-            return BirthDate.Date;
-        }
+       
     }
 }

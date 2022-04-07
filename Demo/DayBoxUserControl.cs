@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DALmssqlServer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,8 +16,8 @@ namespace WeekplannerClassesLibrary
     {
         string Month;
         string Year;
-        string date; 
-        DataBase db =new();
+        string date;
+        ActiviteitContainer AC = new(new ActiviteitenMSSQLDAL());
         User user;
         public DayBoxUserControl(User user,int month, int year)
         {
@@ -55,9 +56,9 @@ namespace WeekplannerClassesLibrary
         public void ShowEvents()
         {
             string dateofbox = $"{Year}/{Month}/{GiveDay()}";
-            if (db.GetAmountActivitysDay(user, MakeDate(dateofbox)) > 0)
+            if (AC.GetAmountActivitysDay(user, MakeDate(dateofbox)) > 0)
             {
-                events_Lbl.Text = $"{db.GetAmountActivitysDay(user, MakeDate(dateofbox))}  event(s)";
+                events_Lbl.Text = $"{AC.GetAmountActivitysDay(user, MakeDate(dateofbox))}  event(s)";
             }
             else
             {
