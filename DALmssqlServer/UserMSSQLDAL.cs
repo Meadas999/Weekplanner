@@ -5,66 +5,27 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekplannerClassesLibrary;
 
 namespace DALmssqlServer
 {
     public class UserMSSQLDAL : IUserContainer
     {
-        
-        //TODO: Add Database class instead of above
         Database db = new();
-       
-        public string GetEmail(UserDTO user)
-        {
-            return user.Email;
-        }
-
-        public string GetFullName(UserDTO user)
-        {
-            return $"{user.FirstName}  {user.LastName}";
-        }
-
-        public string GetFirstName(UserDTO user)
-        {
-            return user.FirstName;
-        }
-
-        public string GetLastName(UserDTO user)
-        {
-            return user.LastName;
-        }
-
-        public string GetPassword(UserDTO user)
-        {
-            return user.Password;
-        }
-
-        public DateTime GetBirthDate(UserDTO user)
-        {
-            return user.BirthDate.Date;
-        }
-        public double GetWeight(UserDTO user)
-        {
-            return user.Weight;
-        }
-        public int GetLength(UserDTO user)
-        {
-            return user.Length;
-        }
-        public void AddUser(UserDTO user)
+        public void AddUser(UserDTO user, string password)
         {
             db.MakeConnection();
             string query =
                 "INSERT INTO Users(First_Name, Last_Name, Email, Password, Birthdate, Weight, Length) " +
                 "VALUES(@first_name, @last_name, @email, @password, @birthdate, @weight, @length)";
             SqlCommand command = new(query, db.conn);
-            command.Parameters.AddWithValue("@first_name", GetFirstName(user));
-            command.Parameters.AddWithValue("@last_name", GetLastName(user));
-            command.Parameters.AddWithValue("@email", GetEmail(user));
-            command.Parameters.AddWithValue("@password", GetPassword(user));
-            command.Parameters.AddWithValue("@birthdate", GetBirthDate(user));
-            command.Parameters.AddWithValue("@weight", GetWeight(user));
-            command.Parameters.AddWithValue("@length", GetLength(user));
+            command.Parameters.AddWithValue("@first_name", user.FirstName);
+            command.Parameters.AddWithValue("@last_name", user.LastName);
+            command.Parameters.AddWithValue("@email", user.Email);
+            command.Parameters.AddWithValue("@password", password);
+            command.Parameters.AddWithValue("@birthdate", user.BirthDate.Date);
+            command.Parameters.AddWithValue("@weight", user.Weight);
+            command.Parameters.AddWithValue("@length", user.Length);
             command.ExecuteNonQuery();
             db.EndConnection();
         }
@@ -98,8 +59,24 @@ namespace DALmssqlServer
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
+                UserDTO user = new(Convert.ToInt32(reader["Id"]), reader["First_Name"].ToString(), reader["Last_Name"].ToString(), reader["Email"].ToString(), Convert.ToDateTime(reader["Birthdate"]), Convert.ToDouble(reader["Weight"]), Convert.ToInt16(reader["Length"]));
+                db.EndConnection();
+                return user;
+            }
+            db.EndConnection();
+            return null;
+        }
 
-                UserDTO user = new(reader["First_Name"].ToString(), reader["Last_Name"].ToString(), reader["Email"].ToString(), reader["Password"].ToString(), Convert.ToDateTime(reader["Birthdate"]), Convert.ToDouble(reader["Weight"]), Convert.ToInt16(reader["Length"]));
+        public UserDTO FindUserById(int id)
+        {
+            db.MakeConnection();
+            string query = "SELECT * FROM Users WHERE Id = @id";
+            SqlCommand command = new(query, db.conn);
+            command.Parameters.AddWithValue("@id", id);
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                UserDTO user = new(Convert.ToInt32(reader["Id"]), reader["First_Name"].ToString(), reader["Last_Name"].ToString(), reader["Email"].ToString(), Convert.ToDateTime(reader["Birthdate"]), Convert.ToDouble(reader["Weight"]), Convert.ToInt16(reader["Length"]));
                 db.EndConnection();
                 return user;
             }
@@ -116,8 +93,7 @@ namespace DALmssqlServer
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-
-                UserDTO user = new(reader["First_Name"].ToString(), reader["Last_Name"].ToString(), reader["Email"].ToString(), reader["Password"].ToString(), Convert.ToDateTime(reader["Birthdate"]), Convert.ToDouble(reader["Weight"]), Convert.ToInt16(reader["Length"]));
+                UserDTO user = new(Convert.ToInt32(reader["Id"]), reader["First_Name"].ToString(), reader["Last_Name"].ToString(), reader["Email"].ToString(), Convert.ToDateTime(reader["Birthdate"]), Convert.ToDouble(reader["Weight"]), Convert.ToInt16(reader["Length"]));
                 db.EndConnection();
                 return user;
             }

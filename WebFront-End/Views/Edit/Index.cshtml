@@ -1,0 +1,29 @@
+﻿@model ActiviteitVM
+@{
+    ViewData["Title"] = "Index";
+}
+<form asp-controller="Edit" asp-action=Return asp-route-id="@Model.ID" asp-route-name="@Model.Name" 
+    asp-route-type="@Model.Description" asp-route-date="@Model.Date"method="post">
+    <h1>Index</h1>
+    <div>
+        <label for="Name">Name</label>
+        <input asp-for=Name value= "@Model.Name" class="form-control" />
+    </div>
+
+    <div>
+        <label for="Type">Type</label>
+        <input asp-for=Type value="@Model.Type" class="form-control" />
+    </div>
+
+    <div>
+        <label for="Description">Description</label>
+        <input asp-for=Description value="@Model.Description" class="form-control" />
+    </div>
+
+    <div>
+        <label for="Date">Date</label>
+        <input asp-for=Date asp-format="{0:yyyy-MM-ddTHH:mm}" value ="@Model.Date.ToString("yy/MM/dd HH:mm:ss")" class="form-control" />
+    </div>
+    <input type="submit" value="Confirm" class="btn btn-primary" />
+</form>
+

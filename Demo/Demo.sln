@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALMemoryStore", "..\DALMem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterfaceLibrary", "..\InterfaceLibrary\InterfaceLibrary.csproj", "{1731FB0E-CD50-4B12-A0D8-472F4498B472}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALmssqlServer", "..\DALmssqlServer\DALmssqlServer.csproj", "{B69BF1B1-56EA-4F79-8007-7971EDBF0D74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALmssqlServer", "..\DALmssqlServer\DALmssqlServer.csproj", "{B69BF1B1-56EA-4F79-8007-7971EDBF0D74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFront-End", "..\WebFront-End\WebFront-End.csproj", "{D2B51C71-E6E1-4441-86B3-52DCA93D9756}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{B69BF1B1-56EA-4F79-8007-7971EDBF0D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B69BF1B1-56EA-4F79-8007-7971EDBF0D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B69BF1B1-56EA-4F79-8007-7971EDBF0D74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2B51C71-E6E1-4441-86B3-52DCA93D9756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2B51C71-E6E1-4441-86B3-52DCA93D9756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2B51C71-E6E1-4441-86B3-52DCA93D9756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2B51C71-E6E1-4441-86B3-52DCA93D9756}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

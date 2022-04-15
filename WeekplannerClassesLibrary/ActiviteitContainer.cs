@@ -18,7 +18,7 @@ namespace WeekplannerClassesLibrary
 
         public void AddActivityToUserWTTime(User user, Activiteit activiteit)
         {
-            container.AddActivityToUserWTTime(user.ToDTO(), activiteit.ToDTO());
+            container.AddActivityToUserWithDayOnly(user.ToDTO(), activiteit.ToDTO());
         }
 
         public int GetAmountActivitysDay(User user, DateTime date)
@@ -26,18 +26,29 @@ namespace WeekplannerClassesLibrary
             return container.GetAmountActivitysDay(user.ToDTO(), date);
         }
 
-        public List<Activiteit> GetEventsInfoDay(User user, DateTime day)
+        public List<Activiteit> GetAllEvents(int id)
         {
-            List<ActiviteitDTO> activiteiten = container.GetEventsInfoDay(user.ToDTO(), day);
-            List<Activiteit> activiteitenLijst = new List<Activiteit>();
-            foreach (ActiviteitDTO activiteit in activiteiten)
-            {
-                activiteitenLijst.Add(new Activiteit(activiteit));
-            }
-            return activiteitenLijst;
+            return container.GetAllEvents(id).Select(x => new Activiteit(x)).ToList();
+        }
+        
+
+        public List<Activiteit> GetEventsInfoDay(User user, DateTime day)
+        { 
+            return container.GetEventsInfoDay(user.ToDTO(), day).Select(a => new Activiteit(a)).ToList();
+        }
+
+        public void UpdateActivityWithDayOnly(Activiteit activiteit, int id)
+        {
+            container.UpdateActivityWithDayOnly(activiteit.ToDTO(), id);
+        }
+
+        public Activiteit GetActivityById(int id)
+        {
+            Activiteit activiteit = new(container.GetActivityById(id));
+            return activiteit;
         }
 
 
-        
+
     }
 }

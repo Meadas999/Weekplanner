@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeekplannerClassesLibrary
 {
-    internal class Encrypter
+    public class Encrypter
     {
 
         public class Rootobject

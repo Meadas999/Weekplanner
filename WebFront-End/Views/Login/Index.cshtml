@@ -1,0 +1,42 @@
+﻿@using WebFront_End.Models
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model UserVM
+@{
+    ViewData["Title"] = "LogIn";
+}
+
+<h1>LogIn</h1>
+@if (Model.Retry)
+{
+    <div class="container border">
+        <div class="row">
+            <div class="col error">
+                Foutmelding:
+                <br />
+                Email en of wachtwoord zijn niet correct.
+            </div>
+        </div>
+    </div>
+}
+<form method="post" asp-action=Index>
+    <div class="container border">
+        <div class="row">
+            <div class="col">
+                <label for="email">Email</label>
+                <input asp-for=Email class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="password">Wachtwoord</label>
+                <input asp-for=Password type="password" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="submit" value="LogIn" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>

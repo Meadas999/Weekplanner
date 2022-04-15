@@ -15,48 +15,9 @@ namespace WeekplannerClassesLibrary
         {
             this.container = container;
         }
-        public string GetEmail(User user)
+        public void AddUser(UserDTO user, string password)
         {
-            return container.GetEmail(user.ToDTO());
-        }
-
-        public string GetFullName(User user)
-        {
-            return $"{container.GetFirstName(user.ToDTO())}  {container.GetLastName(user.ToDTO())}";
-        }
-
-        public string GetFirstName(User user)
-        {
-            return container.GetFirstName(user.ToDTO());
-        }
-
-        public string GetLastName(User user)
-        {
-            return container.GetLastName(user.ToDTO());
-        }
-
-        public string GetPassword(User user)
-        {
-            return container.GetPassword(user.ToDTO());
-        }
-
-        public DateTime GetBirthDate(User user)
-        {
-            return container.GetBirthDate(user.ToDTO());
-        }
-        public double GetWeight(User user)
-        {
-
-            return container.GetWeight(user.ToDTO());
-        }
-        public int GetLength(User user)
-        {
-            return container.GetLength(user.ToDTO());
-        }
-
-        public void AddUser(UserDTO user)
-        {
-            container.AddUser(user);
+            container.AddUser(user, password);
         }
         public bool CheckForUsedEmail(string email)
         {
@@ -64,12 +25,25 @@ namespace WeekplannerClassesLibrary
         }
         public User FindUserByEmailAndPassword(string email, string password)
         {
-            UserDTO dto = container.FindUserByEmailAndPassword(email, password);
-            return new User(dto);
+            if (container.FindUserByEmailAndPassword(email, password) != null)
+            {
+                UserDTO dto = container.FindUserByEmailAndPassword(email, password);
+                return new User(dto);
+            }
+            else
+            {
+                return null;
+            }
         }
         public User FindUserByEmail(string email)
         {
             UserDTO dto = container.FindUserByEmail(email);
+            return new User(dto);
+        }
+
+        public User FindUserById(int id)
+        {
+            UserDTO dto = container.FindUserById(id);
             return new User(dto);
         }
     }

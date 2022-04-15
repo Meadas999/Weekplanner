@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InterfaceLibrary\InterfaceLibrary.csproj" />
+    <ProjectReference Include="..\WeekplannerClassesLibrary\WeekplannerClassesLibrary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,11 +5,8 @@ namespace DALmssqlServer
 {
     public class ActiviteitenMSSQLDAL : IActiviteitenContainer
     {
-    
         Database db = new();
-        
-        
-        public void AddActivityToUserWTTime(UserDTO user, ActiviteitDTO activiteit)
+        public void AddActivityToUserWithDayOnly(UserDTO user, ActiviteitDTO activiteit)
         {
             int id = db.GetUserId(user);
             db.MakeConnection();
@@ -24,6 +21,41 @@ namespace DALmssqlServer
             db.EndConnection();
         }
 
+        public void UpdateActivityWithDayOnly(ActiviteitDTO activiteit, int userid)
+        {
+            db.MakeConnection();
+            string query = "UPDATE Activity SET Type = @type, Name = @name, Description = @description, Date = @date WHERE UserId = @userid AND Id = @id";
+            SqlCommand command = new(query, db.conn);
+            command.Parameters.AddWithValue("@type", activiteit.Type);
+            command.Parameters.AddWithValue("@name", activiteit.Name);
+            command.Parameters.AddWithValue("@description", activiteit.Description);
+            command.Parameters.AddWithValue("@date", activiteit.Date);
+            command.Parameters.AddWithValue("@id", activiteit.Id);
+            command.Parameters.AddWithValue("@userid", userid);
+            command.ExecuteNonQuery();
+            db.EndConnection();
+        }
+
+        public ActiviteitDTO GetActivityById(int id)
+        {
+            db.MakeConnection();
+            string query = "SELECT * FROM Activity WHERE Id = @id";
+            SqlCommand command = new(query, db.conn);
+            command.Parameters.AddWithValue("@id", id);
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    ActiviteitDTO activiteit = new(Convert.ToInt32(reader["Id"]), reader["Type"].ToString(), reader["Name"].ToString(), reader["Description"].ToString(), Convert.ToDateTime(reader["Date"]));
+                    db.EndConnection();
+                    return activiteit;
+                }
+            }
+            db.EndConnection();
+            return null;
+           
+        }
         public int GetAmountActivitysDay(UserDTO user, DateTime date)
         {
             int id = db.GetUserId(user);
@@ -51,11 +83,31 @@ namespace DALmssqlServer
             {
                 while (reader.Read())
                 {
-                    list.Add(new ActiviteitDTO(reader["Type"].ToString(), reader["Name"].ToString(), reader["Description"].ToString(), Convert.ToDateTime(reader["Date"])));
+                    list.Add(new ActiviteitDTO(Convert.ToInt32(reader["Id"]),reader["Type"].ToString(), reader["Name"].ToString(), reader["Description"].ToString(), Convert.ToDateTime(reader["Date"])));
                 }
             }
             db.EndConnection();
             return list;
         }
+        public List<ActiviteitDTO> GetAllEvents(int id)
+        {
+            List<ActiviteitDTO> list = new List<ActiviteitDTO>();
+            db.MakeConnection();
+            string query = "SELECT * FROM Activity WHERE UserId = @userid";
+            SqlCommand command = new(query, db.conn);
+            command.Parameters.AddWithValue("@userid", id);
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    list.Add(new ActiviteitDTO(Convert.ToInt32(reader["Id"]), reader["Type"].ToString(), reader["Name"].ToString(), reader["Description"].ToString(), Convert.ToDateTime(reader["Date"])));
+                }
+            }
+            db.EndConnection();
+            return list;
+        }
+
+       
     }
 }

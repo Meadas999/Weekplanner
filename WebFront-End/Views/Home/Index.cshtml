@@ -1,0 +1,47 @@
+﻿@model UserVM
+@using WebFront_End.Models
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Hello @Model.GetFullName()</h1>
+
+<div class="container border">
+    <div class="row">
+        <div class="col AC_header">
+            <p>Type</p>
+        </div>
+        <div class="col AC_header">
+            <p>Title</p>
+        </div>
+        <div class="col AC_header">
+            <p>Start Time</p>
+        </div>
+        <div class="col AC_header">
+            <p>End Time</p>
+        </div>
+    </div>
+   
+    @foreach (ActiviteitVM a in Model.activiteiten)
+    {
+        <div class="row">
+            <div class="col AC">
+                <p>@a.Type</p>
+            </div>
+            <div class="col AC">
+                <p>@a.Name</p>
+            </div>
+            <div class="col AC">
+                <p>@a.Date</p>
+            </div>
+            <div class="col AC">
+                <p>@a.Date</p>
+            </div>
+            <div class="col">
+            </div>
+            <form asp-controller="Edit" asp-action=Index asp-route-id=@a.ID method="post">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </form>
+        </div>
+    }
+</div>
