@@ -29,7 +29,7 @@ namespace Demo
         private void FunctionTester_Load(object sender, EventArgs e)
         {
             User user = UC.FindUserById(4);
-            user.activitys = AC.GetAllEvents(user);
+            user.activitys = AC.GetAllEvents(user.UserId);
             listBox1.DataSource = user.activitys;
         }
     }

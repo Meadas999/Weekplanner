@@ -1,0 +1,32 @@
+﻿@model ActiviteitVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Add activity</h1>
+
+<form asp-controller="Activity" asp-action="Create" asp-route-name="@Model.Name"
+asp-route-type="@Model.Type" asp-route-description="@Model.Description" asp-route-date="@Model.Date" method="post">
+    
+    <div>
+        <label for="Name">Name</label>
+        <input asp-for=Name  class="form-control" />
+    </div>
+
+    <div>
+        <label for="Type">Type</label>
+        <input asp-for=Type class="form-control" />
+    </div>
+
+    <div>
+        <label for="Description">Description</label>
+        <input asp-for=Description class="form-control" />
+    </div>
+
+    <div>
+        <label for="Date">Date</label>
+        <input asp-for=Date  value="@DateTime.Now" asp-format="{0:yyyy-MM-ddTHH:mm}" class="form-control" />
+        
+    </div>
+    <input type="submit" value="Add event" class="btn btn-primary" />
+</form>

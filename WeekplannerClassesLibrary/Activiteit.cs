@@ -28,6 +28,13 @@ namespace WeekplannerClassesLibrary
             this.Description = description;
             this.Date = datetime;
         }
+        public Activiteit(string type, string name, string description, DateTime datetime)
+        {
+            this.Type = type;
+            this.Name = name;
+            this.Description = description;
+            this.Date = datetime;
+        }
 
         public Activiteit(ActiviteitDTO dto)
         {

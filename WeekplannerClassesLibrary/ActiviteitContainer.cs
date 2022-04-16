@@ -16,9 +16,9 @@ namespace WeekplannerClassesLibrary
             this.container = container;
         }
 
-        public void AddActivityToUserWTTime(User user, Activiteit activiteit)
+        public void AddActivityToUserWTTime(int id, Activiteit activiteit)
         {
-            container.AddActivityToUserWithDayOnly(user.ToDTO(), activiteit.ToDTO());
+            container.AddActivityToUserWithDayOnly(id, activiteit.ToDTO());
         }
 
         public int GetAmountActivitysDay(User user, DateTime date)
@@ -48,6 +48,10 @@ namespace WeekplannerClassesLibrary
             return activiteit;
         }
 
+        public void DeleteActivityById(int id)
+        {
+            container.DeleteActivityById(id);
+        }
 
 
     }

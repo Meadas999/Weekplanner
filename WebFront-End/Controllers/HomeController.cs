@@ -19,21 +19,28 @@ namespace WebFront_End.Controllers
         public IActionResult Index()
         {
             int? id = HttpContext.Session.GetInt32("UserId");
-            if(id == null) return RedirectToAction("Login", "User");
+            if (id == null) return RedirectToAction("Login", "User");
             UserVM user = new(UC.FindUserById(id.Value));
             user.activiteiten = AC.GetAllEvents(user.UserId).Select(x => new ActiviteitVM(x)).ToList();
             return View(user);
         }
-       
+
+        public IActionResult DeleteActivity(int id)
+        {
+            AC.DeleteActivityById(id);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
     }
 }

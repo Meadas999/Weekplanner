@@ -19,5 +19,13 @@ namespace InterfaceLibrary
             this.Description = description;
             this.Date = datetime;
         }
+        public ActiviteitDTO(string type, string name, string description, DateTime datetime)
+        {
+            this.Type = type;
+            this.Name = name;
+            this.Description = description;
+            this.Date = datetime;
+        }
+
     }
 }

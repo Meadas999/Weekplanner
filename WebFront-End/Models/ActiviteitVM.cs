@@ -4,16 +4,17 @@ namespace WebFront_End.Models
 {
     public class ActiviteitVM
     {
-        public int ID;
-        public string Type;
-        public string Name;
-        public string Description;
-        public DateTime Date;
+        public int ID { get; }
+        public string Type { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public DateTime Date { get; set; }
 
         public ActiviteitVM()
         {
             
         }
+        
 
         public ActiviteitVM(Activiteit activiteit)
         {

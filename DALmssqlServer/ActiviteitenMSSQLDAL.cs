@@ -6,9 +6,8 @@ namespace DALmssqlServer
     public class ActiviteitenMSSQLDAL : IActiviteitenContainer
     {
         Database db = new();
-        public void AddActivityToUserWithDayOnly(UserDTO user, ActiviteitDTO activiteit)
+        public void AddActivityToUserWithDayOnly(int id, ActiviteitDTO activiteit)
         {
-            int id = db.GetUserId(user);
             db.MakeConnection();
             string query = "INSERT INTO Activity(Type, Name, Description, Date, UserId) VALUES(@type, @name, @description, @date, @userid)";
             SqlCommand command = new(query, db.conn);
@@ -32,6 +31,16 @@ namespace DALmssqlServer
             command.Parameters.AddWithValue("@date", activiteit.Date);
             command.Parameters.AddWithValue("@id", activiteit.Id);
             command.Parameters.AddWithValue("@userid", userid);
+            command.ExecuteNonQuery();
+            db.EndConnection();
+        }
+
+        public void DeleteActivityById(int id)
+        {
+            db.MakeConnection();
+            string query = "DELETE FROM Activity WHERE Id = @id";
+            SqlCommand command = new(query, db.conn);
+            command.Parameters.AddWithValue("@id", id);
             command.ExecuteNonQuery();
             db.EndConnection();
         }

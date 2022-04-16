@@ -19,15 +19,15 @@ namespace WebFront_End.Controllers
 
         public ActionResult Index()
         {
-            UserVM vm = new();
+            UserModel_LG vm = new();
             vm.Retry = false;
             return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Index(UserVM user)
+        public IActionResult Index(string email, string password)
         {
-            User us = UC.FindUserByEmailAndPassword(user.Email, user.Password);
+            User us = UC.FindUserByEmailAndPassword(email, password);
             if (us != null)
             {
                 UserVM u = new(us);

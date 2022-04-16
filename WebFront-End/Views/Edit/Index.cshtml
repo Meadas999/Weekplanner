@@ -22,7 +22,8 @@
 
     <div>
         <label for="Date">Date</label>
-        <input asp-for=Date asp-format="{0:yyyy-MM-ddTHH:mm}" value ="@Model.Date.ToString("yy/MM/dd HH:mm:ss")" class="form-control" />
+        <input asp-for=Date asp-format="{0:yyyy-MM-ddTHH:mm}" value="@Model.Date.ToString("yy/MM/dd HH:mm:ss")" class="form-control" />
+        
     </div>
     <input type="submit" value="Confirm" class="btn btn-primary" />
 </form>

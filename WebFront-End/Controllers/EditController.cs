@@ -12,14 +12,14 @@ namespace WebFront_End.Controllers
         public IActionResult Index(int id)
         {
             ActiviteitVM activiteit = new(AC.GetActivityById(id));
-            
             return View(activiteit);
         }
-        public IActionResult Return(int id,string name, string type, string description, DateTime date )
+        public IActionResult Return(int id,string name, string type, string description, DateTime date)
         {
             Activiteit activity = new(id,name, type, description, date);
             AC.UpdateActivityWithDayOnly(activity, HttpContext.Session.GetInt32("UserId").Value);
             return RedirectToAction("Index", "Home");
         }
+        
     }
 }
