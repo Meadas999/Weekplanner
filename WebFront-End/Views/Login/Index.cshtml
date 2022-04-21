@@ -1,7 +1,7 @@
 ﻿@using WebFront_End.Models
 @using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-@model UserModel_LG
+@model UserLogInVM
 @{
     ViewData["Title"] = "LogIn";
 }
@@ -19,6 +19,7 @@
         </div>
     </div>
 }
+
 <form method="post" asp-action=Index asp-route-email=@Model.Email asp-route-password=@Model.Password>
     <div class="container border">
         <div class="row">

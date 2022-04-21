@@ -50,21 +50,6 @@ namespace DALmssqlServer
                 Console.WriteLine(exc);
             }
         }
-        public int GetUserId(UserDTO user)
-        {
-            MakeConnection();
-            string query = "SELECT Id FROM Users WHERE Email = @email";
-            SqlCommand command = new(query, conn);
-            command.Parameters.AddWithValue("@email", user.Email);
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                int id = Convert.ToInt32(reader["Id"]);
-                EndConnection();
-                return id;
-            }
-            EndConnection();
-            return -1;
-        }
+        
     }
 }

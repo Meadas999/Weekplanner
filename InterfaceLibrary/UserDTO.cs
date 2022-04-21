@@ -9,9 +9,7 @@ namespace InterfaceLibrary
 {
     public class UserDTO
     {
-        
-        
-        public int Userid { get;}
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -23,7 +21,7 @@ namespace InterfaceLibrary
         public UserDTO(int userid,string firstname, string lastname, string email,
             DateTime birthdate,  double weight, int length)
         {
-            Userid = userid;
+            Id = userid;
             FirstName = firstname;
             LastName = lastname;
             Email = email;

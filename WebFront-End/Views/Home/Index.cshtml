@@ -22,6 +22,8 @@
         <div class="col AC_header">
             <p>End Time</p>
         </div>
+        <div class="col AC_header">
+        </div>
     </div>
 
     @foreach (ActiviteitVM a in Model.activiteiten)
@@ -40,13 +42,13 @@
                 <p>@a.Date</p>
             </div>
             <div class="col">
+                <form asp-controller="Edit" asp-action=Index asp-route-id=@a.ID method="post">
+                    <input type="submit" value="Edit" class="btn btn-primary" />
+                </form>
+                <form asp-controller="Home" asp-action=DeleteActivity asp-route-id=@a.ID method="post">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
             </div>
-            <form asp-controller="Edit" asp-action=Index asp-route-id=@a.ID method="post">
-                <input type="submit" value="Edit" class="btn btn-primary" />
-            </form>
-            <form asp-controller="Home" asp-action=DeleteActivity asp-route-id=@a.ID method="post">
-                <input type="submit" value="Delete" class="btn btn-danger" />
-            </form>
         </div>
     }
 </div>

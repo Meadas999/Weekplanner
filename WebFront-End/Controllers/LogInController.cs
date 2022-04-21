@@ -19,11 +19,12 @@ namespace WebFront_End.Controllers
 
         public ActionResult Index()
         {
-            UserModel_LG vm = new();
+            UserLogInVM vm = new();
             vm.Retry = false;
             return View(vm);
         }
-
+        //TODO: Use Uservm instead of strings as parameters.
+        //TODO: Full name van Uservm in session. 
         [HttpPost]
         public IActionResult Index(string email, string password)
         {
@@ -32,7 +33,7 @@ namespace WebFront_End.Controllers
             {
                 UserVM u = new(us);
                 HttpContext.Session.SetInt32("UserId", u.UserId);
-                return RedirectToAction("Index", "Home", u);
+                return RedirectToAction("Index", "Home");
             }
             else
             {

@@ -2,9 +2,25 @@
 @{
     ViewData["Title"] = "Index";
 }
-<form asp-controller="Edit" asp-action=Return asp-route-id="@Model.ID" asp-route-name="@Model.Name" 
-    asp-route-type="@Model.Description" asp-route-date="@Model.Date"method="post">
+<!-- Popperjs -->
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.2/dist/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+<!-- Tempus Dominus JavaScript -->
+<script src="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/js/tempus-dominus.js"
+        crossorigin="anonymous"></script>
+
+<!-- Tempus Dominus Styles -->
+<link href="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/css/tempus-dominus.css"
+      rel="stylesheet" crossorigin="anonymous">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      rel="stylesheet" crossorigin="anonymous">
+      
+<form asp-controller="Edit" asp-action=Return method="post">
     <h1>Index</h1>
+    <div>
+        <input asp-for=ID type="hidden" />
+    </div>
     <div>
         <label for="Name">Name</label>
         <input asp-for=Name value= "@Model.Name" class="form-control" />
@@ -22,7 +38,9 @@
 
     <div>
         <label for="Date">Date</label>
-        <input asp-for=Date asp-format="{0:yyyy-MM-ddTHH:mm}" value="@Model.Date.ToString("yy/MM/dd HH:mm:ss")" class="form-control" />
+         <div class="col-3">
+        <input asp-for=Date Type="text" class="form-control" placeholder="@Model.Date" id="dateinput">
+    </div>
         
     </div>
     <input type="submit" value="Confirm" class="btn btn-primary" />

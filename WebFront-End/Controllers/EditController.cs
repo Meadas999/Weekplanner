@@ -14,9 +14,9 @@ namespace WebFront_End.Controllers
             ActiviteitVM activiteit = new(AC.GetActivityById(id));
             return View(activiteit);
         }
-        public IActionResult Return(int id,string name, string type, string description, DateTime date)
+        public IActionResult Return(ActiviteitVM vm)
         {
-            Activiteit activity = new(id,name, type, description, date);
+            Activiteit activity = vm.ToActiviteit();
             AC.UpdateActivityWithDayOnly(activity, HttpContext.Session.GetInt32("UserId").Value);
             return RedirectToAction("Index", "Home");
         }

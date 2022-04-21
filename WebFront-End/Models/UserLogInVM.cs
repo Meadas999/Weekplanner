@@ -2,20 +2,21 @@
 
 namespace WebFront_End.Models
 {
-    public class UserModel_LG
+    public class UserLogInVM
     {
         [Required]
+        [EmailAddress]
         public string? Email { get; set; } 
         [Required]
         public string? Password { get; set; } 
         public bool Retry { get; set; }
 
-        public UserModel_LG(string email, string password)
+        public UserLogInVM(string email, string password)
         {
             Email = email;
             Password = password;
         }
-        public UserModel_LG()
+        public UserLogInVM()
         {
         }
     }

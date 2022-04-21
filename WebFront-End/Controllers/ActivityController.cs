@@ -14,11 +14,17 @@ namespace WebFront_End.Controllers
             return View(vm);
         }
 
-        public IActionResult Create(string name, string type, string description, DateTime date)
+        //public IActionResult Create(string name, string type, string description, DateTime date)
+        //{
+        //    Activiteit act = new(name, type, description, date);
+        //    AC.AddActivityToUserWTTime(HttpContext.Session.GetInt32("UserId").Value, act);
+        //    return RedirectToAction("Index","Home");
+        //}
+        public IActionResult Create(ActiviteitVM vm)
         {
-            Activiteit act = new(name, type, description, date);
+            Activiteit act = vm.ToActiviteit();
             AC.AddActivityToUserWTTime(HttpContext.Session.GetInt32("UserId").Value, act);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

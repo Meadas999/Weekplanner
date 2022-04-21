@@ -21,7 +21,7 @@ namespace WeekplannerClassesLibrary
             this.Weight = weight;
             this.Length = length;
         }
-        public User(UserDTO userDTO) : base(userDTO.Userid,userDTO.FirstName, userDTO.LastName, userDTO.Email, userDTO.BirthDate)
+        public User(UserDTO userDTO) : base(userDTO.Id,userDTO.FirstName, userDTO.LastName, userDTO.Email, userDTO.BirthDate)
         {
             this.Weight = userDTO.Weight;
             this.Length = userDTO.Length;

@@ -1,6 +1,6 @@
 namespace WebFront_End.Models
 {
-    public class ErrorViewModel
+    public class ErrorVM
     {
         public string? RequestId { get; set; }
 

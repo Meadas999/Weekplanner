@@ -3,14 +3,28 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Add activity</h1>
+<!-- Popperjs -->
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.2/dist/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+<!-- Tempus Dominus JavaScript -->
+<script src="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/js/tempus-dominus.js"
+        crossorigin="anonymous"></script>
 
-<form asp-controller="Activity" asp-action="Create" asp-route-name="@Model.Name"
-asp-route-type="@Model.Type" asp-route-description="@Model.Description" asp-route-date="@Model.Date" method="post">
-    
+<!-- Tempus Dominus Styles -->
+<link href="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/css/tempus-dominus.css"
+      rel="stylesheet" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      rel="stylesheet" crossorigin="anonymous">
+
+ <!-- 
+     TODO: Verplaatsen naar de shared view -->
+
+<h1>Add activity</h1>
+<form asp-controller="Activity" asp-action="Create" method="post">
+
     <div>
         <label for="Name">Name</label>
-        <input asp-for=Name  class="form-control" />
+        <input asp-for=Name class="form-control" />
     </div>
 
     <div>
@@ -25,8 +39,10 @@ asp-route-type="@Model.Type" asp-route-description="@Model.Description" asp-rout
 
     <div>
         <label for="Date">Date</label>
-        <input asp-for=Date  value="@DateTime.Now" asp-format="{0:yyyy-MM-ddTHH:mm}" class="form-control" />
-        
+        <div class="col-3">
+            <input asp-for=Date Type="text" class="form-control" value="@DateTime.Now" id="dateinput">
+        </div>
     </div>
+    <br />
     <input type="submit" value="Add event" class="btn btn-primary" />
 </form>
