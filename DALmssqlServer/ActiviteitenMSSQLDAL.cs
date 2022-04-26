@@ -6,20 +6,38 @@ namespace DALmssqlServer
     public class ActiviteitenMSSQLDAL : IActiviteitenContainer
     {
         Database db = new();
-        public void AddActivityToUserWithDayOnly(int id, ActiviteitDTO activiteit)
+
+        /// <summary>
+        /// Deze methode voegt de activiteit met alleen een datum(dus zonder tijd) toe aan de database ,doormiddel van een ActiviteitDTO en een userid. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="activiteit"></param>
+        public void AddActivityToUserWithDayOnly(int userid, ActiviteitDTO activiteit)
         {
-            db.MakeConnection();
-            string query = "INSERT INTO Activity(Type, Name, Description, Date, UserId) VALUES(@type, @name, @description, @date, @userid)";
-            SqlCommand command = new(query, db.conn);
-            command.Parameters.AddWithValue("@type", activiteit.Type);
-            command.Parameters.AddWithValue("@name", activiteit.Name);
-            command.Parameters.AddWithValue("@description", activiteit.Description);
-            command.Parameters.AddWithValue("@date", activiteit.Date);
-            command.Parameters.AddWithValue("@userid", id);
-            command.ExecuteNonQuery();
-            db.EndConnection();
+            try
+            {
+                db.MakeConnection();
+                string query = "INSERT INTO Activity(Type, Name, Description, Date, UserId) VALUES(@type, @name, @description, @date, @userid)";
+                SqlCommand command = new(query, db.conn);
+                command.Parameters.AddWithValue("@type", activiteit.Type);
+                command.Parameters.AddWithValue("@name", activiteit.Name);
+                command.Parameters.AddWithValue("@description", activiteit.Description);
+                command.Parameters.AddWithValue("@date", activiteit.Date);
+                command.Parameters.AddWithValue("@userid", userid);
+                command.ExecuteNonQuery();
+                db.EndConnection();
+            }
+            catch
+            {
+                throw new ActiviteitException("Kon de Activiteit niet toevoegen aan de database.");
+            }
         }
 
+        /// <summary>
+        /// Past de specifieke activiteit aan met de nieuwe data. In de front-end
+        /// </summary>
+        /// <param name="activiteit"></param>
+        /// <param name="userid"></param>
         public void UpdateActivityWithDayOnly(ActiviteitDTO activiteit, int userid)
         {
             db.MakeConnection();

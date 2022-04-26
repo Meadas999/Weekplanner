@@ -33,7 +33,7 @@ namespace WebFront_End.Controllers
             {
                 UserVM u = new(us);
                 HttpContext.Session.SetInt32("UserId", u.UserId);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home")    ;
             }
             else
             {
