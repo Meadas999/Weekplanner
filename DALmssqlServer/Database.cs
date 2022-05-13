@@ -16,7 +16,7 @@ namespace DALmssqlServer
         public SqlConnection? conn;
         public Rootobject root;
 
-
+        // Maakt verbinding met de database.
         public void MakeConnection()
         {
             try
@@ -35,6 +35,7 @@ namespace DALmssqlServer
                 Console.WriteLine(exc);
             }
         }
+        // Eindigt de connectie met de database.
         public void EndConnection()
         {
             try

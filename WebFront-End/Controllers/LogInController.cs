@@ -28,18 +28,32 @@ namespace WebFront_End.Controllers
         [HttpPost]
         public IActionResult Index(string email, string password)
         {
-            User us = UC.FindUserByEmailAndPassword(email, password);
-            if (us != null)
+            try
             {
-                UserVM u = new(us);
-                HttpContext.Session.SetInt32("UserId", u.UserId);
-                return RedirectToAction("Index", "Home")    ;
+                User us = UC.FindUserByEmailAndPassword(email, password);
+                if (us != null)
+                {
+                    UserVM u = new(us);
+                    HttpContext.Session.SetInt32("UserId", u.UserId);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    UserVM vm = new();
+                    vm.Retry = true;
+                    return View(vm);
+                }
             }
-            else
+            catch (TemporaryDalException exc)
             {
-                UserVM vm = new();
-                vm.Retry = true;
-                return View(vm);
+                _logger.LogError(exc, exc.Message);
+                return View("ErrorActivity", exc);
+            }
+            catch (PermanentDalException exc)
+            {
+                //TODO: make view with feedback
+                _logger.LogError(exc, exc.Message);
+                return View("ErrorActivity", exc);
             }
         }
     }

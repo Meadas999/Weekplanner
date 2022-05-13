@@ -55,6 +55,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DALmssqlServer\DALmssqlServer.csproj">
+      <Project>{b69bf1b1-56ea-4f79-8007-7971edbf0d74}</Project>
+      <Name>DALmssqlServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WeekplannerClassesLibrary\WeekplannerClassesLibrary.csproj">
+      <Project>{9f6d938f-0770-4d6b-9e65-5b940646535c}</Project>
+      <Name>WeekplannerClassesLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

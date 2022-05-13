@@ -9,6 +9,11 @@ namespace WeekplannerUnitTester
         [TestMethod]
         public void TestMethod1()
         {
+            //Act
+            
+            //Arrange
+            
+            //Assert
         }
     }
 }

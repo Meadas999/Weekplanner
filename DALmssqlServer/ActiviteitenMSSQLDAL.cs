@@ -26,12 +26,17 @@ namespace DALmssqlServer
                 command.Parameters.AddWithValue("@userid", userid);
                 command.ExecuteNonQuery();
                 db.EndConnection();
-            }
-            catch
+            }   
+            catch (InvalidOperationException exc)
             {
-                throw new ActiviteitException("Kon de Activiteit niet toevoegen aan de database.");
+                throw new TemporaryDalException("Kon de activiteit niet toevoegen aan de database, controleer uw verbinding.", exc.Message);
+            }
+            catch (Exception exc)
+            {
+                throw new PermanentDalException("Fout in de applicatie,neem contact op met onze hulpdesk via twitter", exc.Message);
             }
         }
+
 
         /// <summary>
         /// Past de specifieke activiteit aan met de nieuwe data. In de front-end
@@ -40,86 +45,194 @@ namespace DALmssqlServer
         /// <param name="userid"></param>
         public void UpdateActivityWithDayOnly(ActiviteitDTO activiteit, int userid)
         {
-            db.MakeConnection();
-            string query = "UPDATE Activity SET Type = @type, Name = @name, Description = @description, Date = @date WHERE UserId = @userid AND Id = @id";
-            SqlCommand command = new(query, db.conn);
-            command.Parameters.AddWithValue("@type", activiteit.Type);
-            command.Parameters.AddWithValue("@name", activiteit.Name);
-            command.Parameters.AddWithValue("@description", activiteit.Description);
-            command.Parameters.AddWithValue("@date", activiteit.Date);
-            command.Parameters.AddWithValue("@id", activiteit.Id);
-            command.Parameters.AddWithValue("@userid", userid);
-            command.ExecuteNonQuery();
-            db.EndConnection();
+            try
+            {
+                db.MakeConnection();
+                string query = "UPDATE Activity SET Type = @type, Name = @name, Description = @description, Date = @date WHERE UserId = @userid AND Id = @id";
+                SqlCommand command = new(query, db.conn);
+                command.Parameters.AddWithValue("@type", activiteit.Type);
+                command.Parameters.AddWithValue("@name", activiteit.Name);
+                command.Parameters.AddWithValue("@description", activiteit.Description);
+                command.Parameters.AddWithValue("@date", activiteit.Date);
+                command.Parameters.AddWithValue("@id", activiteit.Id);
+                command.Parameters.AddWithValue("@userid", userid);
+                command.ExecuteNonQuery();
+                db.EndConnection();
+            }
+            catch (InvalidOperationException exc)
+            {
+                throw new TemporaryDalException("Kon de activiteit niet updaten in de database. Controleer uw verbinding.", exc.Message);
+            }
+            catch (Exception exc)
+            {
+                throw new PermanentDalException("Fout in de applicatie, neem contact op met onze hulpdesk via twitter", exc.Message);
+            }
         }
-
-        public void DeleteActivityById(int id)
+        /// <summary>
+        /// Verwijdert de activiteit in de database met de gegeven activiteitsid die gekoppeld is aan de specififieke activiteit. 
+        /// Waardoor de specifieke activieit verwijdert kan worden. Als er een probleem optreedt die wordt veroorzaakt 
+        /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <exception cref="TemporaryDalException"></exception>
+        /// <exception cref="PermanentDalException"></exception>
+        public void DeleteActivityById(int activiteitsid)
         {
-            db.MakeConnection();
-            string query = "DELETE FROM Activity WHERE Id = @id";
-            SqlCommand command = new(query, db.conn);
-            command.Parameters.AddWithValue("@id", id);
-            command.ExecuteNonQuery();
-            db.EndConnection();
+            try
+            {
+                db.MakeConnection();
+                string query = "DELETE FROM Activity WHERE Id = @id";
+                SqlCommand command = new(query, db.conn);
+                command.Parameters.AddWithValue("@id", activiteitsid);
+                command.ExecuteNonQuery();
+                db.EndConnection();
+            }
+            catch (InvalidOperationException exc)
+            {
+                throw new TemporaryDalException("Kon de activiteit niet verwijderen in de database. Controleer uw verbinding.", exc.Message);
+            }
+            catch (Exception exc)
+            {
+                throw new PermanentDalException("Fout in de applicatie, neem contact op met onze hulpdesk via twitter", exc.Message);
+            }
         }
-
+        /// <summary>
+        /// Haalt een activiteit uit de database doormiddel van de gegeven activiteitsid, en zet deze om in een activiteitDTO. 
+        /// Als er een probleem optreedt die wordt veroorzaakt 
+        /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="TemporaryDalException"></exception>
+        /// <exception cref="PermanentDalException"></exception>
         public ActiviteitDTO GetActivityById(int id)
         {
-            db.MakeConnection();
-            string query = "SELECT * FROM Activity WHERE Id = @id";
-            SqlCommand command = new(query, db.conn);
-            command.Parameters.AddWithValue("@id", id);
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                db.MakeConnection();
+                string query = "SELECT * FROM Activity WHERE Id = @id";
+                SqlCommand command = new(query, db.conn);
+                command.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    ActiviteitDTO activiteit = ReadDTO(reader);
-                    db.EndConnection();
-                    return activiteit;
+                    while (reader.Read())
+                    {
+                        ActiviteitDTO activiteit = ReadDTO(reader);
+                        db.EndConnection();
+                        return activiteit;
+                    }
                 }
+                db.EndConnection();
+                return null;
             }
-            db.EndConnection();
-            return null;
+            catch (InvalidOperationException exc)
+            {
+                throw new TemporaryDalException("Kon de activiteits' id niet verkrijgen uit de database. Controleer uw verbinding. ", exc.Message);
+            }
+            catch (Exception exc)
+            {
+                throw new PermanentDalException("Fout in de applicatie, neem contact op met onze hulpdesk via twitter", exc.Message);
+            }
 
         }
+        /// <summary>
+        /// Telt het aantal activiteiten op van de gebruiker doormiddel van de userid en de specifieke dag.
+        /// Als er een probleem optreedt die wordt veroorzaakt 
+        /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        /// <exception cref="TemporaryDalException"></exception>
+        /// <exception cref="PermanentDalException"></exception>
         public int GetAmountActivitysDay(UserDTO user, DateTime date)
         {
+            try
+            {
+                db.MakeConnection();
+                string query = "SELECT COUNT(*) FROM Activity WHERE UserId = @userid AND Date = @date";
+                SqlCommand command = new(query, db.conn);
+                command.Parameters.AddWithValue("@userid", user.Id);
+                command.Parameters.AddWithValue("@date", date);
+                int amount = Convert.ToInt32(command.ExecuteScalar());
+                db.EndConnection();
+                return amount;
+            }
+            catch (InvalidOperationException exc)
+            {
+                throw new TemporaryDalException("Kon het aantal niet verkrijgen uit de database. Controleer uw verbinding. ", exc.Message);
+            }
+            catch (Exception exc)
+            {
+                throw new PermanentDalException("Fout in de applicatie, neem contact op met onze hulpdesk via twitter", exc.Message);
+            }
 
-            db.MakeConnection();
-            string query = "SELECT COUNT(*) FROM Activity WHERE UserId = @userid AND Date = @date";
-            SqlCommand command = new(query, db.conn);
-            command.Parameters.AddWithValue("@userid", user.Id);
-            command.Parameters.AddWithValue("@date", date);
-            int amount = Convert.ToInt32(command.ExecuteScalar());
-            db.EndConnection();
-            return amount;
         }
-
+        /// <summary>
+        /// Haalt alle activiteien op van de meegegeven specifieke dag en met userid.
+        /// Als er een probleem optreedt die wordt veroorzaakt 
+        /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
+        /// <exception cref="TemporaryDalException"></exception>
+        /// <exception cref="PermanentDalException"></exception>
         public List<ActiviteitDTO> GetEventsInfoDay(UserDTO user, DateTime day)
         {
-            List<ActiviteitDTO> list = new List<ActiviteitDTO>();
-            db.MakeConnection();
-            string query = "SELECT * FROM Activity WHERE Date = @date AND UserId = @userid";
-            SqlCommand command = new(query, db.conn);
-            command.Parameters.AddWithValue("@date", day);
-            command.Parameters.AddWithValue("@userid", user.Id);
-            AddActivityToList(list, command);
-            db.EndConnection();
-            return list;
+            try
+            {
+                List<ActiviteitDTO> list = new List<ActiviteitDTO>();
+                db.MakeConnection();
+                string query = "SELECT * FROM Activity WHERE Date = @date AND UserId = @userid";
+                SqlCommand command = new(query, db.conn);
+                command.Parameters.AddWithValue("@date", day);
+                command.Parameters.AddWithValue("@userid", user.Id);
+                AddActivityToList(list, command);
+                db.EndConnection();
+                return list;
+            }
+            catch (InvalidOperationException exc)
+            {
+                throw new TemporaryDalException("Kon de activiteiten niet verkrijgen uit de database. Controleer uw verbinding. ", exc.Message);
+            }
+            catch (Exception exc)
+            {
+                throw new PermanentDalException("Fout in de applicatie, neem contact op met onze hulpdesk via twitter", exc.Message);
+            }
         }
 
-
+        /// <summary>
+        /// Haalt alle activiteiten op van de gebruiker doormiddel van de gegeven userid.
+        /// Als er een probleem optreedt die wordt veroorzaakt 
+        /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        /// <exception cref="TemporaryDalException"></exception>
+        /// <exception cref="PermanentDalException"></exception>
         public List<ActiviteitDTO> GetAllEvents(int userid)
         {
-            List<ActiviteitDTO> list = new List<ActiviteitDTO>();
-            db.MakeConnection();
-            string query = "SELECT * FROM Activity WHERE UserId = @userid ORDER BY Date DESC";
-            SqlCommand command = new(query, db.conn);
-            command.Parameters.AddWithValue("@userid", userid);
-            AddActivityToList(list, command);
-            db.EndConnection();
-            return list;
+            try
+            {
+                List<ActiviteitDTO> list = new List<ActiviteitDTO>();
+                db.MakeConnection();
+                string query = "SELECT * FROM Activity WHERE UserId = @userid ORDER BY Date DESC";
+                SqlCommand command = new(query, db.conn);
+                command.Parameters.AddWithValue("@userid", userid);
+                AddActivityToList(list, command);
+                db.EndConnection();
+                return list;
+            }
+            catch (InvalidOperationException exc)
+            {
+                throw new TemporaryDalException("Kon de Activiteits' id niet verkrijgen uit de database. Controleer uw verbinding. ", exc.Message);
+            }
+            catch (Exception exc)
+            {
+                throw new PermanentDalException("Fout in de applicatie, neem contact op met onze hulpdesk via twitter", exc.Message);
+            }
         }
         private void AddActivityToList(List<ActiviteitDTO> list, SqlCommand command)
         {
@@ -135,7 +248,7 @@ namespace DALmssqlServer
 
         private ActiviteitDTO ReadDTO(SqlDataReader reader)
         {
-            return new ActiviteitDTO(Convert.ToInt32(reader["Id"]), reader["Type"].ToString(), reader["Name"].ToString(), 
+            return new ActiviteitDTO(Convert.ToInt32(reader["Id"]), reader["Type"].ToString(), reader["Name"].ToString(),
                                                      reader["Description"].ToString(), Convert.ToDateTime(reader["Date"]));
         }
 

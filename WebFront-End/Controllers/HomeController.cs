@@ -18,17 +18,45 @@ namespace WebFront_End.Controllers
         }
         public IActionResult Index()
         {
-            int? id = HttpContext.Session.GetInt32("UserId");
-            if (id == null) return RedirectToAction("Login", "User");
-            UserVM user = new(UC.FindUserById(id.Value));
-            user.activiteiten = AC.GetAllEvents(user.UserId).Select(x => new ActiviteitVM(x)).ToList();
-            return View(user);
+            try
+            {
+                int? id = HttpContext.Session.GetInt32("UserId");
+                if (id == null) return RedirectToAction("Login", "User");
+                UserVM user = new(UC.FindUserById(id.Value));
+                user.activiteiten = AC.GetAllEvents(user.UserId).Select(x => new ActiviteitVM(x)).ToList();
+                return View(user);
+            }
+            catch (TemporaryDalException exc)
+            {
+                _logger.LogError(exc, exc.Message);
+                return View("ErrorActivity", exc);
+            }
+            catch (PermanentDalException exc)
+            {
+                //TODO: make view with feedback
+                _logger.LogError(exc, exc.Message);
+                return View("ErrorActivity", exc);
+            }
         }
 
         public IActionResult DeleteActivity(int id)
         {
-            AC.DeleteActivityById(id);
-            return RedirectToAction("Index");
+            try
+            {
+                AC.DeleteActivityById(id);
+                return RedirectToAction("Index");
+            }
+            catch (TemporaryDalException exc)
+            {
+                _logger.LogError(exc, exc.Message);
+                return View("ErrorActivity", exc);
+            }
+            catch (PermanentDalException exc)
+            {
+                //TODO: make view with feedback
+                _logger.LogError(exc, exc.Message);
+                return View("ErrorActivity", exc);
+            }
         }
 
         public IActionResult Privacy()

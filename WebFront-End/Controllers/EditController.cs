@@ -8,17 +8,50 @@ namespace WebFront_End.Controllers
 {
     public class EditController : Controller
     {
+        private readonly ILogger<EditController> _logger;
         private ActiviteitContainer AC = new(new ActiviteitenMSSQLDAL());
+        public EditController(ILogger<EditController> logger)
+        {
+            _logger = logger;
+        }
         public IActionResult Index(int id)
         {
-            ActiviteitVM activiteit = new(AC.GetActivityById(id));
-            return View(activiteit);
+            try
+            {
+                ActiviteitVM activiteit = new(AC.GetActivityById(id));
+                return View(activiteit);
+            }
+            catch (TemporaryDalException exc)
+            {
+                _logger.LogError(exc, exc.Message);
+                return View("ErrorActivity", exc);
+            }
+            catch (PermanentDalException exc)
+            {
+                //TODO: make view with feedback
+                _logger.LogError(exc, exc.Message);
+                return View("ErrorActivity", exc);
+            }
         }
         public IActionResult Return(ActiviteitVM vm)
         {
-            Activiteit activity = vm.ToActiviteit();
-            AC.UpdateActivityWithDayOnly(activity, HttpContext.Session.GetInt32("UserId").Value);
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                Activiteit activity = vm.ToActiviteit();
+                AC.UpdateActivityWithDayOnly(activity, HttpContext.Session.GetInt32("UserId").Value);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (TemporaryDalException exc)
+            {
+                _logger.LogError(exc, exc.Message);
+                return View("ErrorActivity", exc);
+            }
+            catch (PermanentDalException exc)
+            {
+                //TODO: make view with feedback
+                _logger.LogError(exc, exc.Message);
+                return View("ErrorActivity", exc);
+            }
         }
         
     }
