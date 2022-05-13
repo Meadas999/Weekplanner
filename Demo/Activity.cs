@@ -47,7 +47,7 @@ namespace WeekplannerClassesLibrary
         {
             /*DateOnly datum = DateOnly.FromDateTime(date_Picker.Value);*/
             Activiteit activity = new(TypeCB.Text, titel_TB.Text, beschrijving_RTB.Text, date_Picker.Value);
-            AC.AddActivityToUserWTTime(user, activity);
+            AC.AddActivityToUserWTTime(user.UserId, activity);
             user.activitys.Add(activity);
             this.Close();
         }

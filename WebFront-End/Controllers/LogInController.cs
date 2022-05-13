@@ -26,11 +26,12 @@ namespace WebFront_End.Controllers
         //TODO: Use Uservm instead of strings as parameters.
         //TODO: Full name van Uservm in session. 
         [HttpPost]
-        public IActionResult Index(string email, string password)
+        public IActionResult Index(UserLogInVM vm)
         {
             try
             {
-                User us = UC.FindUserByEmailAndPassword(email, password);
+                vm.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(vm.Password, 12);
+                User us = UC.FindUserByEmailAndPassword(vm.Email, vm.Password);
                 if (us != null)
                 {
                     UserVM u = new(us);
@@ -39,9 +40,9 @@ namespace WebFront_End.Controllers
                 }
                 else
                 {
-                    UserVM vm = new();
-                    vm.Retry = true;
-                    return View(vm);
+                    UserVM newvm = new();
+                    newvm.Retry = true;
+                    return View(newvm);
                 }
             }
             catch (TemporaryDalException exc)

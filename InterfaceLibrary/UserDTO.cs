@@ -12,6 +12,7 @@ namespace InterfaceLibrary
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string PassHash { get; set; }
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }
         public double Weight { get; set; }

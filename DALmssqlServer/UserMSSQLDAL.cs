@@ -102,6 +102,8 @@ namespace DALmssqlServer
         {
             try
             {
+                int id = 0;
+                string hash = null;
                 db.MakeConnection();
                 string query = "SELECT * FROM Users WHERE Email = @email AND Password = @password";
                 SqlCommand command = new(query, db.conn);
@@ -110,12 +112,21 @@ namespace DALmssqlServer
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    UserDTO user = new(Convert.ToInt32(reader["Id"]), reader["First_Name"].ToString(), reader["Last_Name"].ToString(), reader["Email"].ToString(), Convert.ToDateTime(reader["Birthdate"]), Convert.ToDouble(reader["Weight"]), Convert.ToInt16(reader["Length"]));
+                    id = Convert.ToInt32(reader["Id"]);
+                    hash = Convert.ToString(reader["Password"]);
                     db.EndConnection();
-                    return user;
+                    
                 }
                 db.EndConnection();
-                return null;
+                bool verified = BCrypt.Net.BCrypt.EnhancedVerify(password, hash);
+                if (verified)
+                {
+                    return FindUserById(id);
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch (InvalidOperationException exc)
             {
