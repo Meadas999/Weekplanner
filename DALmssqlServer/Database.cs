@@ -29,7 +29,6 @@ namespace DALmssqlServer
                     Console.WriteLine("Connected to database");
                 }
             }
-
             catch (Exception exc)
             {
                 Console.WriteLine(exc);

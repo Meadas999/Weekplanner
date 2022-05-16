@@ -32,7 +32,7 @@ namespace WeekplannerClassesLibrary
             if (!UC.CheckForUsedEmail(email_Tb.Text))
             {
                 User user = new(firstname_Tb.Text, lastname_Tb.Text, email_Tb.Text.ToLower(), Birthdate_Tpicker.Value, Convert.ToDouble(weight_Tb.Text), Convert.ToInt16(lenght_Tb.Text));
-                UC.AddUser(user.ToDTO(), password_Tb.Text);
+                UC.AddUser(user, password_Tb.Text);
                 OpenInlogForm();
             }
             else 

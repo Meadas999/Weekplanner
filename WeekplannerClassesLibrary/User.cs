@@ -15,7 +15,7 @@ namespace WeekplannerClassesLibrary
         public int Length { get; set; }
         public List<Activiteit> activitys = new List<Activiteit>();
         
-        public User(int userid,string firstname, string lastname, string email,DateTime birthdate, double weight, int length)
+        public User(int userid,string firstname, string lastname, string email, DateTime birthdate, double weight, int length)
                     : base(userid,firstname, lastname, email, birthdate)
         {
             this.Weight = weight;

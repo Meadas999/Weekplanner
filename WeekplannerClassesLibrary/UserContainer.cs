@@ -15,9 +15,9 @@ namespace WeekplannerClassesLibrary
         {
             this.container = container;
         }
-        public void AddUser(UserDTO user, string password)
+        public void AddUser(User user, string password)
         {
-            container.AddUser(user, password);
+            container.AddUser(user.ToDTO(), password);
         }
         public bool CheckForUsedEmail(string email)
         {

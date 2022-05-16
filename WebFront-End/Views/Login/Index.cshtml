@@ -20,7 +20,7 @@
     </div>
 }
 
-<form method="post" asp-action=Index asp-route-email=@Model.Email asp-route-password=@Model.Password>
+<form method="post" asp-action=Index>
     <div class="container border">
         <div class="row">
             <div class="col">
@@ -41,3 +41,6 @@
         </div>
     </div>
 </form>
+<br />
+
+Don't have an account?<a asp-action="Index" asp-controller="Register">Register here!</a>

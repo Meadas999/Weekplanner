@@ -25,6 +25,7 @@ namespace DALmssqlServer
         {
             try
             {
+                password = BCrypt.Net.BCrypt.EnhancedHashPassword(password,12);
                 db.MakeConnection();
                 string query =
                     "INSERT INTO Users(First_Name, Last_Name, Email, Password, Birthdate, Weight, Length) " +
@@ -34,7 +35,7 @@ namespace DALmssqlServer
                 command.Parameters.AddWithValue("@last_name", user.LastName);
                 command.Parameters.AddWithValue("@email", user.Email);
                 command.Parameters.AddWithValue("@password", password);
-                command.Parameters.AddWithValue("@birthdate", user.BirthDate.Date);
+                command.Parameters.AddWithValue("@birthdate", user.BirthDate);
                 command.Parameters.AddWithValue("@weight", user.Weight);
                 command.Parameters.AddWithValue("@length", user.Length);
                 command.ExecuteNonQuery();
