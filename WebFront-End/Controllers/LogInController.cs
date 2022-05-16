@@ -48,13 +48,13 @@ namespace WebFront_End.Controllers
             catch (TemporaryDalException exc)
             {
                 _logger.LogError(exc, exc.Message);
-                return View("ErrorActivity", exc);
+                return View("TemporaryError", exc);
             }
             catch (PermanentDalException exc)
             {
                 //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
-                return View("ErrorActivity", exc);
+                return View("PermanentError", exc);
             }
         }
     }

@@ -29,13 +29,13 @@ namespace WebFront_End.Controllers
             catch (TemporaryDalException exc)
             {
                 _logger.LogError(exc, exc.Message);
-                return View("ErrorActivity", exc);
+                return View("TemporaryError", exc);
             }
             catch (PermanentDalException exc)
             {
                 //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
-                return View("ErrorActivity", exc);
+                return View("PermanentError", exc);
             }
         }
 
@@ -49,13 +49,13 @@ namespace WebFront_End.Controllers
             catch (TemporaryDalException exc)
             {
                 _logger.LogError(exc, exc.Message);
-                return View("ErrorActivity", exc);
+                return View("TemporaryError", exc);
             }
             catch (PermanentDalException exc)
             {
                 //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
-                return View("ErrorActivity", exc);
+                return View("PermanentError", exc);
             }
         }
 
@@ -63,11 +63,8 @@ namespace WebFront_End.Controllers
         {
             return View();
         }
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorVM { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
+        
 
 
     }
