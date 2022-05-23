@@ -30,7 +30,7 @@ namespace WebFront_End.Controllers
         {
             try
             {
-                vm.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(vm.Password, 12);
+                
                 User us = UC.FindUserByEmailAndPassword(vm.Email, vm.Password);
                 if (us != null)
                 {
@@ -40,7 +40,7 @@ namespace WebFront_End.Controllers
                 }
                 else
                 {
-                    UserVM newvm = new();
+                    UserLogInVM newvm = new();
                     newvm.Retry = true;
                     return View(newvm);
                 }

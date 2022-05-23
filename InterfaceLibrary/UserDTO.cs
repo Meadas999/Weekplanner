@@ -30,5 +30,9 @@ namespace InterfaceLibrary
             Weight = weight;
             Length = length;
         }
+        public UserDTO()
+        {
+
+        }
     }
 }

@@ -23,9 +23,10 @@ namespace DALmssqlServer
         /// <exception cref="PermanentDalException"></exception>
         public void AddUser(UserDTO user, string password)
         {
+            // TODO: make bool and combine with checkforused email
             try
             {
-                password = BCrypt.Net.BCrypt.EnhancedHashPassword(password,12);
+                password = BCrypt.Net.BCrypt.EnhancedHashPassword(password, 12);
                 db.MakeConnection();
                 string query =
                     "INSERT INTO Users(First_Name, Last_Name, Email, Password, Birthdate, Weight, Length) " +
@@ -35,7 +36,7 @@ namespace DALmssqlServer
                 command.Parameters.AddWithValue("@last_name", user.LastName);
                 command.Parameters.AddWithValue("@email", user.Email);
                 command.Parameters.AddWithValue("@password", password);
-                command.Parameters.AddWithValue("@birthdate", user.BirthDate);
+                command.Parameters.AddWithValue("@birthdate", user.BirthDate.Date);
                 command.Parameters.AddWithValue("@weight", user.Weight);
                 command.Parameters.AddWithValue("@length", user.Length);
                 command.ExecuteNonQuery();
@@ -99,35 +100,34 @@ namespace DALmssqlServer
         /// <returns></returns>
         /// <exception cref="TemporaryDalException"></exception>
         /// <exception cref="PermanentDalException"></exception>
-        public UserDTO FindUserByEmailAndPassword(string email, string password)
+        public UserDTO? FindUserByEmailAndPassword(string email, string password)
         {
+
             try
             {
+                bool verified = false;
                 int id = 0;
-                string hash = null;
                 db.MakeConnection();
-                string query = "SELECT * FROM Users WHERE Email = @email AND Password = @password";
+                string query = "SELECT Id, Password FROM Users WHERE Email = @email";
                 SqlCommand command = new(query, db.conn);
-                command.Parameters.AddWithValue("@email", email);
-                command.Parameters.AddWithValue("@password", password);
+                command.Parameters.AddWithValue("@email", email.ToLower());
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     id = Convert.ToInt32(reader["Id"]);
-                    hash = Convert.ToString(reader["Password"]);
-                    db.EndConnection();
+                    string hash = reader["Password"].ToString();
+                    verified = BCrypt.Net.BCrypt.EnhancedVerify(password, hash);
                     
                 }
                 db.EndConnection();
-                bool verified = BCrypt.Net.BCrypt.EnhancedVerify(password, hash);
                 if (verified)
                 {
                     return FindUserById(id);
                 }
-                else
-                {
-                    return null;
-                }
+                return null;
+                
+
+
             }
             catch (InvalidOperationException exc)
             {
@@ -152,13 +152,19 @@ namespace DALmssqlServer
             try
             {
                 db.MakeConnection();
+                UserDTO user = new();
                 string query = "SELECT * FROM Users WHERE Id = @id";
                 SqlCommand command = new(query, db.conn);
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
-                ReturnUserDTO(command);
+                user = ReadUserDTO(reader, command);
+                if (user != null)
+                { 
+                    return user;
+                }
                 db.EndConnection();
                 return null;
+            
             }
             catch (InvalidOperationException exc)
             {
@@ -178,30 +184,29 @@ namespace DALmssqlServer
         public UserDTO FindUserByEmail(string email)
         {
             db.MakeConnection();
+            UserDTO user = new();
             string query = "SELECT * FROM Users WHERE Email = @email";
             SqlCommand command = new(query, db.conn);
             command.Parameters.AddWithValue("@email", email);
-            ReturnUserDTO(command);
-            db.EndConnection();
-            return null;
-        }
-        
-        private UserDTO ReturnUserDTO(SqlCommand command)
-        {
             SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                UserDTO user = ReadUserDTO(reader);
-                db.EndConnection();
-                return user;
-            }
-            return null;
+            user = ReadUserDTO(reader, command);
+            db.EndConnection();
+            return user;
+
+
         }
 
-        private UserDTO ReadUserDTO(SqlDataReader reader)
+        
+
+        private UserDTO ReadUserDTO(SqlDataReader reader, SqlCommand command)
         {
-            return new UserDTO(Convert.ToInt32(reader["Id"]), reader["First_Name"].ToString(), reader["Last_Name"].ToString(), reader["Email"].ToString(),
+            
+            while (reader.Read())
+            {
+                return new UserDTO(Convert.ToInt32(reader["Id"]), reader["First_Name"].ToString(), reader["Last_Name"].ToString(), reader["Email"].ToString(),
                                Convert.ToDateTime(reader["Birthdate"]), Convert.ToDouble(reader["Weight"]), Convert.ToInt16(reader["Length"]));
+            }
+            return null;
         }
 
     }
