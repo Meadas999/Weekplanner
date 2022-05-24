@@ -30,7 +30,6 @@ namespace WebFront_End.Controllers
         {
             try
             {
-                
                 User us = UC.FindUserByEmailAndPassword(vm.Email, vm.Password);
                 if (us != null)
                 {

@@ -10,18 +10,20 @@ namespace WeekplannerClassesLibrary
 {
     public class User : UserBase
     {
-        
+
         public double Weight { get; set; }
         public int Length { get; set; }
-        public List<Activiteit> activitys = new List<Activiteit>();
-        
-        public User(int userid,string firstname, string lastname, string email, DateTime birthdate, double weight, int length)
-                    : base(userid,firstname, lastname, email, birthdate)
+        public List<Activiteit> activitys = new();
+        public List<Voeding> Voedingen = new();
+        public double BMI { get { return this.Weight / (this.Length * this.Length); } set { BMI = value; } }
+        public User(int userid, string firstname, string lastname, string email, DateTime birthdate, double weight, int length)
+                    : base(userid, firstname, lastname, email, birthdate)
         {
             this.Weight = weight;
             this.Length = length;
+
         }
-        public User(UserDTO userDTO) : base(userDTO.Id,userDTO.FirstName, userDTO.LastName, userDTO.Email, userDTO.BirthDate)
+        public User(UserDTO userDTO) : base(userDTO.Id, userDTO.FirstName, userDTO.LastName, userDTO.Email, userDTO.BirthDate)
         {
             this.Weight = userDTO.Weight;
             this.Length = userDTO.Length;
