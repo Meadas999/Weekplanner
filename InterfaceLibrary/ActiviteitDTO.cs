@@ -26,6 +26,5 @@ namespace InterfaceLibrary
             this.Description = description;
             this.Date = datetime;
         }
-
     }
 }

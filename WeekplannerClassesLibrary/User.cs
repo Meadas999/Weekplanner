@@ -15,6 +15,7 @@ namespace WeekplannerClassesLibrary
         public int Length { get; set; }
         public List<Activiteit> activitys = new();
         public List<Voeding> Voedingen = new();
+        public Team Team { get; set; }
         public double BMI { get { return this.Weight / (this.Length * this.Length); } set { BMI = value; } }
         public User(int userid, string firstname, string lastname, string email, DateTime birthdate, double weight, int length)
                     : base(userid, firstname, lastname, email, birthdate)

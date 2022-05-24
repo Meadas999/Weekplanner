@@ -26,28 +26,42 @@ namespace WeekplannerClassesLibrary
         }
         public Voeding(int id, string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue)
         {
+            double deelsom = examplevalue / weight;
             Id = id;
             Name = name;
-            Fat = fat;
-            Carbohydrates = carbohydrates;
-            Sugar = sugar;
-            Fiber = fiber;
-            Proteine = proteine;
-            Calories = calories;
+            Fat = fat * deelsom;
+            Carbohydrates = carbohydrates * deelsom;
+            Sugar = sugar * deelsom;
+            Fiber = fiber * deelsom;
+            Proteine = proteine * deelsom;
+            Calories = calories * deelsom;
             
         }
         public Voeding(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue)
         {
+            double deelsom = examplevalue / weight;
             Name = name;
-            Fat = fat;
-            Carbohydrates = carbohydrates;
-            Sugar = sugar;
-            Fiber = fiber;
-            Proteine = proteine;
-            Calories = calories;
+            Fat = fat * deelsom;
+            Carbohydrates = carbohydrates * deelsom;
+            Sugar = sugar * deelsom;
+            Fiber = fiber * deelsom;
+            Proteine = proteine * deelsom;
+            Calories = calories * deelsom;
             
         }
-
+        public Voeding(VoedingDTO dto)
+        { 
+            Id = dto.Id;
+            Name = dto.Name;
+            Fat = dto.Fat;
+            Carbohydrates = dto.Carbohydrates;
+            Sugar = dto.Sugar;
+            Fiber = dto.Fiber;
+            Proteine = dto.Proteine;
+            Calories = dto.Calories;
+            Weight = dto.Weight;
+            Type = dto.Type;
+        }
         public VoedingDTO ToDTO()
         {
             return new VoedingDTO(Id, Name, Fat, Carbohydrates, Sugar, Fiber, Proteine, Calories);
