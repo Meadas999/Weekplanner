@@ -21,9 +21,8 @@ namespace InterfaceLibrary
 
         public VoedingDTO()
         {
-
         }
-        public VoedingDTO(int id, string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories)
+        public VoedingDTO(int id, string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type)
         {
             Id = id;
             Name = name;
@@ -33,9 +32,10 @@ namespace InterfaceLibrary
             Fiber = fiber;
             Proteine = proteine;
             Calories = calories;
-            
+            Weight = weight;
+            Type = type;
         }
-        public VoedingDTO(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories)
+        public VoedingDTO(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type)
         {
             Name = name;
             Fat = fat;
@@ -44,6 +44,8 @@ namespace InterfaceLibrary
             Fiber = fiber;
             Proteine = proteine;
             Calories = calories;
+            Weight = weight;
+            Type = type;
         }
     }
 }

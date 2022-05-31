@@ -35,7 +35,9 @@ namespace WeekplannerClassesLibrary
             Fiber = fiber * deelsom;
             Proteine = proteine * deelsom;
             Calories = calories * deelsom;
-            
+            Weight = weight;
+            Type = type;
+
         }
         public Voeding(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue)
         {
@@ -64,7 +66,7 @@ namespace WeekplannerClassesLibrary
         }
         public VoedingDTO ToDTO()
         {
-            return new VoedingDTO(Id, Name, Fat, Carbohydrates, Sugar, Fiber, Proteine, Calories);
+            return new VoedingDTO(Id, Name, Fat, Carbohydrates, Sugar, Fiber, Proteine, Calories, Weight, Type);
         }
         
         public override string ToString()
