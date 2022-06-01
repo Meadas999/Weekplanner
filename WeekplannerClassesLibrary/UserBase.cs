@@ -24,5 +24,11 @@
             Email = email;
             BirthDate = birthDate;
         }
+
+        public UserBase(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
     }
 }

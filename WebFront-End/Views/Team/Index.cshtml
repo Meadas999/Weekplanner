@@ -1,0 +1,49 @@
+﻿@model UserTeamVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Teams</h1>
+
+<body>
+    <div>
+        @foreach (TeamVM team in Model.UserTeams)
+        {
+            <table class="table table-hover table-borderless table-striped" id="mijnTeamTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Team: @team.Name </th>
+                        <th scope="col">Occupation: @team.Members.Count().ToString()/@team.MaxMembers.ToString() </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (TeamUsersVM us in team.Members)
+                    {
+                        <tr><td>@us.ToString()</td></tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        @foreach (TeamVM team in Model.AllTeams)
+        {
+            <table class="table table-hover table-borderless table-striped" id="mijnTeamTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Team: @team.Name </th>
+                        <th scope="col">Occupation: @team.Members.Count().ToString()/@team.MaxMembers.ToString() </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (TeamUsersVM us in team.Members)
+                    {
+                        <tr>
+                            <td>@us.ToString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</body>
+

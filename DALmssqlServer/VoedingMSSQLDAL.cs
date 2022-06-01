@@ -20,6 +20,7 @@ namespace DALmssqlServer
         /// <exception cref="PermanentDalException"></exception>
         public void AddVoeding(VoedingDTO voeding, int userid)
         {
+            
             try
             {
                 db.MakeConnection();

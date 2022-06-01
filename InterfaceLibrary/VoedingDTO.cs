@@ -18,6 +18,7 @@ namespace InterfaceLibrary
         public double Calories { get; set; }
         public double Weight{ get; set; }
         public string Type { get; set; }
+        //TODO: Add Date (DateTime.now)
 
         public VoedingDTO()
         {

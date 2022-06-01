@@ -12,7 +12,7 @@ namespace DALmssqlServer
 {
     public class Database
     {
-        public static string connectionString = File.ReadAllText(@"C:\Users\amier\OneDrive - Office 365 Fontys\S2\JsonEncrypt.json");
+        public static string connectionString = File.ReadAllText(@"C:\Users\amier\OneDrive - Office 365 Fontys\Weekplanner\JsonEncrypt.json");
         public SqlConnection? conn;
         public Rootobject root;
 

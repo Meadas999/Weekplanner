@@ -18,7 +18,6 @@ namespace InterfaceLibrary
         public double Weight { get; set; }
         public int Length { get; set; }
 
-
         public UserDTO(int userid,string firstname, string lastname, string email,
             DateTime birthdate,  double weight, int length)
         {
@@ -29,6 +28,12 @@ namespace InterfaceLibrary
             BirthDate = birthdate;
             Weight = weight;
             Length = length;
+        }
+
+        public UserDTO(string firstname, string lastname)
+        {
+            FirstName = firstname;
+            LastName = lastname;
         }
         public UserDTO()
         {
