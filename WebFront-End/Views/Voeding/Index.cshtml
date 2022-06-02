@@ -1,0 +1,46 @@
+﻿@model UserVoedingVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Voeding van @Model.ToString()</h1>
+
+<body>
+    <div>
+        <table class="table table-hover table-borderless table-striped" id="mijnTeamTable">
+            <thead>
+                <tr>
+                    <th scope="col">Name:</th>
+                    <th scope="col">Fat:</th>
+                    <th scope="col">Carbohydrates:</th>
+                    <th scope="col">Sugar:</th>
+                    <th scope="col">Fiber:</th>
+                    <th scope="col">Proteine:</th>
+                    <th scope="col">Calories:</th>
+                    <th scope="col">Weight:</th>
+                    <th scope="col">Type:</th>
+                    <th scope="col">Date:</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (VoedingVM v in Model.Voedingen)
+                {
+                    <tr>
+                        <td>@v.Name</td>
+                        <td>@v.Fat</td>
+                        <td>@v.Carbohydrates</td>
+                        <td>@v.Sugar</td>
+                        <td>@v.Fiber</td>
+                        <td>@v.Proteine</td>
+                        <td>@v.Calories</td>
+                        <td>@v.Weight</td>
+                        <td>@v.Type</td>
+                        <td>@v.Date</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</body>
+

@@ -19,12 +19,13 @@ namespace WeekplannerClassesLibrary
         public double Calories { get; set; }
         public double Weight { get; set; }
         public string Type { get; set; }
+        public DateTime Date { get; set; }  
 
         public Voeding()
         {
 
         }
-        public Voeding(int id, string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue)
+        public Voeding(int id, string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue, DateTime date)
         {
             double deelsom = examplevalue / weight;
             Id = id;
@@ -37,9 +38,9 @@ namespace WeekplannerClassesLibrary
             Calories = calories * deelsom;
             Weight = weight;
             Type = type;
-
+            Date = date;
         }
-        public Voeding(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue)
+        public Voeding(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue, DateTime date)
         {
             double deelsom = examplevalue / weight;
             Name = name;
@@ -49,7 +50,9 @@ namespace WeekplannerClassesLibrary
             Fiber = fiber * deelsom;
             Proteine = proteine * deelsom;
             Calories = calories * deelsom;
-            
+            Weight = weight;
+            Type = type;
+            Date = date;
         }
         public Voeding(VoedingDTO dto)
         { 
@@ -63,10 +66,11 @@ namespace WeekplannerClassesLibrary
             Calories = dto.Calories;
             Weight = dto.Weight;
             Type = dto.Type;
+            Date = dto.Date;
         }
         public VoedingDTO ToDTO()
         {
-            return new VoedingDTO(Id, Name, Fat, Carbohydrates, Sugar, Fiber, Proteine, Calories, Weight, Type);
+            return new VoedingDTO(Id, Name, Fat, Carbohydrates, Sugar, Fiber, Proteine, Calories, Weight, Type, Date);
         }
         
         public override string ToString()

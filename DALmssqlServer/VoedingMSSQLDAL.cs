@@ -36,6 +36,7 @@ namespace DALmssqlServer
                 command.Parameters.AddWithValue("@weight", voeding.Weight);
                 command.Parameters.AddWithValue("@calories", voeding.Calories);
                 command.Parameters.AddWithValue("@type", voeding.Type);
+                command.Parameters.AddWithValue("@date", voeding.Date);
                 command.Parameters.AddWithValue("@userid", userid);
                 command.ExecuteNonQuery();
                 db.EndConnection();
@@ -135,9 +136,9 @@ namespace DALmssqlServer
         //Maakt een dto met de gegevens uit de query.
         private VoedingDTO ReadDTO(SqlDataReader reader)
         {
-            return new VoedingDTO(Convert.ToInt32(reader["Id"]), reader["Name"].ToString(), Convert.ToDouble(reader["Fat"]), Convert.ToDouble(reader["Carbohydrates"]), 
+            return new VoedingDTO(Convert.ToInt32(reader["Id"]), reader["Name"].ToString(), Convert.ToDouble(reader["Fat"]), Convert.ToDouble(reader["Carbohydrates"]),
                                   Convert.ToDouble(reader["Sugar"]), Convert.ToDouble(reader["Fiber"]), Convert.ToDouble(reader["Proteine"]),
-                                  Convert.ToDouble(reader["Calories"]), Convert.ToDouble(reader["Weight"]), reader["Type"].ToString());
+                                  Convert.ToDouble(reader["Calories"]), Convert.ToDouble(reader["Weight"]), reader["Type"].ToString(), Convert.ToDateTime(reader["Date"]));
         }
 
 
