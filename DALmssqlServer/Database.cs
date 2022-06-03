@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using static WeekplannerClassesLibrary.Encrypter;
+using static WeekplannerClassesLibrary.Serialiser;
 namespace DALmssqlServer
 {
     public class Database

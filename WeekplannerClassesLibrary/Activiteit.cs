@@ -19,7 +19,14 @@ namespace WeekplannerClassesLibrary
         //TODO: ADD A Start and End time
         // also if there is enough time add reminder time
 
-
+        /// <summary>
+        /// Maakt een activiteit aan op basis van de parameters.
+        /// </summary>
+        /// <param name="id">Activiteitsid</param>
+        /// <param name="type">Type van de activiteit</param>
+        /// <param name="name">Naam van de activiteit</param>
+        /// <param name="description">Beschrijving van de activiteit</param>
+        /// <param name="datetime">Datum van de activiteit</param>
         public Activiteit(int id, string type, string name, string description, DateTime datetime)
         {
             this.Id = id;
@@ -28,6 +35,13 @@ namespace WeekplannerClassesLibrary
             this.Description = description;
             this.Date = datetime;
         }
+        /// <summary>
+        /// Maakt een activiteit aan op basis van de parameters.
+        /// </summary>
+        /// <param name="type">Type van de activiteit</param>
+        /// <param name="name">Naam van de activiteit</param>
+        /// <param name="description">Beschrijving van de activiteit</param>
+        /// <param name="datetime">Datum van de activiteit</param>
         public Activiteit(string type, string name, string description, DateTime datetime)
         {
             this.Type = type;
@@ -35,7 +49,10 @@ namespace WeekplannerClassesLibrary
             this.Description = description;
             this.Date = datetime;
         }
-
+        /// <summary>
+        /// Maakt een Activiteit op basis van de activiteitsdto.
+        /// </summary>
+        /// <param name="dto">ActiviteitsDTO</param>
         public Activiteit(ActiviteitDTO dto)
         {
             this.Id = dto.Id;
@@ -44,11 +61,15 @@ namespace WeekplannerClassesLibrary
             this.Description = dto.Description;
             this.Date = dto.Date;
         }
+        /// <summary>
+        /// Zet de activiteit om in een DTO.
+        /// </summary>
+        /// <returns>ActiviteitsDTO</returns>
         public ActiviteitDTO ToDTO()
         {
             return new ActiviteitDTO(this.Id,this.Type, this.Name, this.Description, this.Date);
         }
-
+        //Override de ToString methode.
         public override string ToString()
         {
             return $"{Type}/{Name}/{Description}/{Date.ToString()}/";

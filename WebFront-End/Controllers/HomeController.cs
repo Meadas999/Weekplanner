@@ -16,6 +16,8 @@ namespace WebFront_End.Controllers
         {
             _logger = logger;
         }
+        //Haalt de homepage op van de gebruiker.
+        [HttpGet]
         public IActionResult Index()
         {
             try
@@ -38,7 +40,9 @@ namespace WebFront_End.Controllers
                 return View("PermanentError", exc);
             }
         }
-
+        
+        //Verwijdert een activiteit.
+       [HttpPost]
         public IActionResult DeleteActivity(int id)
         {
             try
@@ -58,14 +62,5 @@ namespace WebFront_End.Controllers
                 return View("PermanentError", exc);
             }
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        
-        
-
-
     }
 }

@@ -17,8 +17,8 @@ namespace DALmssqlServer
         /// Als er een probleem optreedt die wordt veroorzaakt 
         /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="password"></param>
+        /// <param name="user">De User die je wilt toevoegen.</param>
+        /// <param name="password">Het wachtwoord van de User.</param>
         /// <exception cref="TemporaryDalException"></exception>
         /// <exception cref="PermanentDalException"></exception>
         public void AddUser(UserDTO user, string password)
@@ -57,7 +57,7 @@ namespace DALmssqlServer
         /// Als er een probleem optreedt die wordt veroorzaakt 
         /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="email">De email van de gebruiker.</param>
         /// <returns></returns>
         /// <exception cref="TemporaryDalException"></exception>
         /// <exception cref="PermanentDalException"></exception>
@@ -95,8 +95,8 @@ namespace DALmssqlServer
         /// Als er een probleem optreedt die wordt veroorzaakt 
         /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
+        /// <param name="email">De email van de gebruiker.</param>
+        /// <param name="password">Het wachtwoord van de gebruiker.</param>
         /// <returns></returns>
         /// <exception cref="TemporaryDalException"></exception>
         /// <exception cref="PermanentDalException"></exception>
@@ -125,9 +125,6 @@ namespace DALmssqlServer
                     return FindUserById(id);
                 }
                 return null;
-                
-
-
             }
             catch (InvalidOperationException exc)
             {
@@ -143,7 +140,7 @@ namespace DALmssqlServer
         /// Als er een probleem optreedt die wordt veroorzaakt 
         /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Id van de user.</param>
         /// <returns></returns>
         /// <exception cref="TemporaryDalException"></exception>
         /// <exception cref="PermanentDalException"></exception>
@@ -157,7 +154,7 @@ namespace DALmssqlServer
                 SqlCommand command = new(query, db.conn);
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
-                user = ReadUserDTO(reader, command);
+                user = ReadUserDTO(reader);
                 if (user != null)
                 { 
                     return user;
@@ -179,7 +176,7 @@ namespace DALmssqlServer
         /// Geeft een UserDTO terug doormiddel van een email. Als er een probleem optreedt die wordt veroorzaakt 
         /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="email">De email van de gebruiker.</param>
         /// <returns></returns>
         public UserDTO FindUserByEmail(string email)
         {
@@ -189,18 +186,13 @@ namespace DALmssqlServer
             SqlCommand command = new(query, db.conn);
             command.Parameters.AddWithValue("@email", email);
             SqlDataReader reader = command.ExecuteReader();
-            user = ReadUserDTO(reader, command);
+            user = ReadUserDTO(reader);
             db.EndConnection();
             return user;
-
-
         }
-
-        
-
-        private UserDTO ReadUserDTO(SqlDataReader reader, SqlCommand command)
+        //Leest een UserDTO uit de reader
+        private UserDTO ReadUserDTO(SqlDataReader reader)
         {
-            
             while (reader.Read())
             {
                 return new UserDTO(Convert.ToInt32(reader["Id"]), reader["First_Name"].ToString(), reader["Last_Name"].ToString(), reader["Email"].ToString(),
@@ -208,6 +200,5 @@ namespace DALmssqlServer
             }
             return null;
         }
-
     }
 }

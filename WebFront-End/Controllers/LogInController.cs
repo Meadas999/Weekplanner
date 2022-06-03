@@ -16,7 +16,7 @@ namespace WebFront_End.Controllers
         {
             _logger = logger;
         }
-
+        [HttpGet]
         public ActionResult Index()
         {
             UserLogInVM vm = new();
@@ -25,6 +25,8 @@ namespace WebFront_End.Controllers
         }
         //TODO: Use Uservm instead of strings as parameters.
         //TODO: Full name van Uservm in session. 
+
+        //Haalt de login page op.
         [HttpPost]
         public IActionResult Index(UserLogInVM vm)
         {

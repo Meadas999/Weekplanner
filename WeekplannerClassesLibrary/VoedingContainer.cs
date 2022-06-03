@@ -15,9 +15,9 @@ namespace WeekplannerClassesLibrary
         {
             Container = container;
         }
-        public void AddVoeding(VoedingDTO voeding, int userid)
+        public void AddVoeding(Voeding voeding, int userid)
         {
-            Container.AddVoeding(voeding, userid);
+            Container.AddVoeding(voeding.ToDTO(), userid);
         }
         public List<Voeding> GetAllVoedingFrUser(int userid)
         {
@@ -30,6 +30,11 @@ namespace WeekplannerClassesLibrary
         public void DeleteVoeding(int id)
         {
             Container.DeleteVoeding(id);
+        }
+
+        public Voeding GetById(int id)
+        {
+            return new Voeding(Container.GetById(id));
         }
     }
 }

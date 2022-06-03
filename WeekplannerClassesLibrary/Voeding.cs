@@ -27,7 +27,7 @@ namespace WeekplannerClassesLibrary
         }
         public Voeding(int id, string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue, DateTime date)
         {
-            double deelsom = examplevalue / weight;
+            double deelsom = weight / examplevalue;
             Id = id;
             Name = name;
             Fat = fat * deelsom;
@@ -42,7 +42,7 @@ namespace WeekplannerClassesLibrary
         }
         public Voeding(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue, DateTime date)
         {
-            double deelsom = examplevalue / weight;
+            double deelsom =  weight / examplevalue;
             Name = name;
             Fat = fat * deelsom;
             Carbohydrates = carbohydrates * deelsom;

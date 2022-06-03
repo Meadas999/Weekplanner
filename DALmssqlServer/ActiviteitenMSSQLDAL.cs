@@ -10,8 +10,8 @@ namespace DALmssqlServer
         /// <summary>
         /// Deze methode voegt de activiteit met alleen een datum(dus zonder tijd) toe aan de database ,doormiddel van een ActiviteitDTO en een userid. 
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="activiteit"></param>
+        /// <param name="id">Userid van de gebruiker</param>
+        /// <param name="activiteit">Activiteit die je wilt toevoegen</param>
         public void AddActivityToUserWithDayOnly(int userid, ActiviteitDTO activiteit)
         {
             try
@@ -36,13 +36,11 @@ namespace DALmssqlServer
                 throw new PermanentDalException("Fout in de applicatie,neem contact op met onze hulpdesk via twitter", exc.Message);
             }
         }
-
-
         /// <summary>
         /// Past de specifieke activiteit aan met de nieuwe data. In de front-end
         /// </summary>
-        /// <param name="activiteit"></param>
-        /// <param name="userid"></param>
+        /// <param name="activiteit">Activiteit die je wilt wijzigen</param>
+        /// <param name="userid">Userid van de gebruiker</param>
         public void UpdateActivityWithDayOnly(ActiviteitDTO activiteit, int userid)
         {
             try
@@ -73,7 +71,7 @@ namespace DALmssqlServer
         /// Waardoor de specifieke activieit verwijdert kan worden. Als er een probleem optreedt die wordt veroorzaakt 
         /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="activiteitsid">Activiteitsid van de activiteit die je wilt verwijderen. </param>
         /// <exception cref="TemporaryDalException"></exception>
         /// <exception cref="PermanentDalException"></exception>
         public void DeleteActivityById(int activiteitsid)
@@ -101,7 +99,7 @@ namespace DALmssqlServer
         /// Als er een probleem optreedt die wordt veroorzaakt 
         /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Activiteitsid</param>
         /// <returns></returns>
         /// <exception cref="TemporaryDalException"></exception>
         /// <exception cref="PermanentDalException"></exception>
@@ -141,19 +139,19 @@ namespace DALmssqlServer
         /// Als er een probleem optreedt die wordt veroorzaakt 
         /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="date"></param>
+        /// <param name="userid">Userid van de gebruiker.</param>
+        /// <param name="date">De datum waar je op wilt zoeken.</param>
         /// <returns></returns>
         /// <exception cref="TemporaryDalException"></exception>
         /// <exception cref="PermanentDalException"></exception>
-        public int GetAmountActivitysDay(UserDTO user, DateTime date)
+        public int GetAmountActivitysDay(int userid, DateTime date)
         {
             try
             {
                 db.MakeConnection();
                 string query = "SELECT COUNT(*) FROM Activity WHERE UserId = @userid AND Date = @date";
                 SqlCommand command = new(query, db.conn);
-                command.Parameters.AddWithValue("@userid", user.Id);
+                command.Parameters.AddWithValue("@userid", userid);
                 command.Parameters.AddWithValue("@date", date);
                 int amount = Convert.ToInt32(command.ExecuteScalar());
                 db.EndConnection();
@@ -174,12 +172,12 @@ namespace DALmssqlServer
         /// Als er een probleem optreedt die wordt veroorzaakt 
         /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="day"></param>
+        /// <param name="userid">Userid van de gebruiker.</param>
+        /// <param name="day">De dag waar je op wilt zoeken.</param>
         /// <returns></returns>
         /// <exception cref="TemporaryDalException"></exception>
         /// <exception cref="PermanentDalException"></exception>
-        public List<ActiviteitDTO> GetEventsInfoDay(UserDTO user, DateTime day)
+        public List<ActiviteitDTO> GetEventsInfoDay(int userid, DateTime day)
         {
             try
             {
@@ -188,8 +186,8 @@ namespace DALmssqlServer
                 string query = "SELECT * FROM Activity WHERE Date = @date AND UserId = @userid";
                 SqlCommand command = new(query, db.conn);
                 command.Parameters.AddWithValue("@date", day);
-                command.Parameters.AddWithValue("@userid", user.Id);
-                AddActivityToList(list, command);
+                command.Parameters.AddWithValue("@userid", userid);
+                AddActivityToList(command);
                 db.EndConnection();
                 return list;
             }
@@ -208,7 +206,7 @@ namespace DALmssqlServer
         /// Als er een probleem optreedt die wordt veroorzaakt 
         /// door de gebruiker dan wordt er een tijdelijke exceptie gethrowed, zo niet dan een een permanente exceptie.
         /// </summary>
-        /// <param name="userid"></param>
+        /// <param name="userid">Id van de gebruiker.</param>
         /// <returns></returns>
         /// <exception cref="TemporaryDalException"></exception>
         /// <exception cref="PermanentDalException"></exception>
@@ -221,7 +219,7 @@ namespace DALmssqlServer
                 string query = "SELECT * FROM Activity WHERE UserId = @userid ORDER BY Date DESC";
                 SqlCommand command = new(query, db.conn);
                 command.Parameters.AddWithValue("@userid", userid);
-                AddActivityToList(list, command);
+                AddActivityToList(command);
                 db.EndConnection();
                 return list;
             }
@@ -234,8 +232,10 @@ namespace DALmssqlServer
                 throw new PermanentDalException("Fout in de applicatie, neem contact op met onze hulpdesk via twitter", exc.Message);
             }
         }
-        private void AddActivityToList(List<ActiviteitDTO> list, SqlCommand command)
+        //Geeft een lijst van activiteiten terug.
+        private List<ActiviteitDTO> AddActivityToList(SqlCommand command)
         {
+            List<ActiviteitDTO> list = new();
             SqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
             {
@@ -244,8 +244,9 @@ namespace DALmssqlServer
                     list.Add(ReadDTO(reader));
                 }
             }
+            return list;
         }
-
+        //Leest een activiteitDTO uit een reader.
         private ActiviteitDTO ReadDTO(SqlDataReader reader)
         {
             return new ActiviteitDTO(Convert.ToInt32(reader["Id"]), reader["Type"].ToString(), reader["Name"].ToString(),

@@ -12,6 +12,8 @@ namespace InterfaceLibrary
         public List<VoedingDTO> GetAllVoedingFrUser(int userid);
         public void UpdateVoeding(VoedingDTO dto);
         public void DeleteVoeding(int id);
-        
+        public VoedingDTO GetById(int id);
+
+
     }
 }

@@ -20,6 +20,7 @@
                     <th scope="col">Weight:</th>
                     <th scope="col">Type:</th>
                     <th scope="col">Date:</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -36,11 +37,24 @@
                         <td>@v.Weight</td>
                         <td>@v.Type</td>
                         <td>@v.Date</td>
+                        <td>
+                            <form asp-controller="Voeding" asp-action=Edit asp-route-id=@v.Id>
+                                <input type="submit" value="Edit" class="btn btn-primary" />
+                            </form>
+                            <form asp-controller="Voeding" asp-action=Delete asp-route-id=@v.Id>
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </td>
                     </tr>
                 }
 
             </tbody>
         </table>
+    </div>
+    <div>
+        <form asp-controller="Voeding" asp-action=Create method="post">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </form>
     </div>
 </body>
 

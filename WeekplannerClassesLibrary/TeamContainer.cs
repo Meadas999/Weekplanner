@@ -15,7 +15,6 @@ namespace WeekplannerClassesLibrary
         {
             Container = container;
         }
-
         public List<Team> GetTeamsFromUser(int userid)
         {
             List<Team> teams = Container.GetTeamsFromUser(userid).Select(x => new Team(x)).ToList();

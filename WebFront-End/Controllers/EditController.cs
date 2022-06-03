@@ -14,6 +14,8 @@ namespace WebFront_End.Controllers
         {
             _logger = logger;
         }
+        //Geeft de pagina met de activiteiten die je wilt aanpassen terug.
+        [HttpGet]
         public IActionResult Index(int id)
         {
             try
@@ -33,6 +35,8 @@ namespace WebFront_End.Controllers
                 return View("PermanentError", exc);
             }
         }
+        //Verstuurt de nieuwe gegevens naar de database en gaat terug naar de index pagina van activiteiten.
+        [HttpPost]
         public IActionResult Return(ActiviteitVM vm)
         {
             try

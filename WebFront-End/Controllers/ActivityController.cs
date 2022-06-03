@@ -8,12 +8,13 @@ namespace WebFront_End.Controllers
     public class ActivityController : Controller
     {
         private readonly ILogger<ActivityController> _logger;
-        private ActiviteitContainer AC = new(new ActiviteitenMSSQLDAL());
+        private readonly ActiviteitContainer AC = new(new ActiviteitenMSSQLDAL());
         public ActivityController(ILogger<ActivityController> logger)
         {
             _logger = logger;
         }
         // Geeft een view door waar een nieuwe acitviteit aangemaakt kan worden.
+        [HttpGet]
         public IActionResult Index()
         {
             ActiviteitVM vm = new();
@@ -24,6 +25,7 @@ namespace WebFront_End.Controllers
         /// </summary>
         /// <param name="vm"></param>
         /// <returns></returns>
+        [HttpPost]
         public IActionResult Create(ActiviteitVM vm)
         {
             try

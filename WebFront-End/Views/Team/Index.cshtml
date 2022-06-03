@@ -23,11 +23,11 @@
                     }
                 </tbody>
             </table>
-            <form asp-controller="Voeding" asp-action="LeaveTeam" asp-route-id=@team.Id method="post">
-                <button type="submit" class="btn btn-danger">Leave</button>    
+            <form asp-controller="Team" asp-action="LeaveTeam" asp-route-teamid=@team.Id asp-route-userid=@Model.Id method="post">
+                <button type="submit" class="btn btn-danger">Leave</button>
             </form>
         }
-        
+
 
         @foreach (TeamVM team in Model.AllTeams)
         {
@@ -47,11 +47,11 @@
                     }
                 </tbody>
             </table>
-            @if(!@Model.UserTeams.Contains(team))
+            @if(!Model.UserTeams.Any(x => x.Id == team.Id) && team.Members.Count < team.MaxMembers)
             {
-                <form asp-controller="Voeding" asp-action="JoinTeam" asp-route-teamid=@team.Id asp-route-userid=@Model.Id method="post">
-                <button type="submit" class="btn btn-success">Join</button>    
-            </form>
+                <form asp-controller="Team" asp-action="JoinTeam" asp-route-teamid=@team.Id asp-route-userid=@Model.Id>
+                    <button type="submit" class="btn btn-success">Join</button>
+                </form>
             }
         }
     </div>

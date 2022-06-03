@@ -13,11 +13,14 @@ namespace WebFront_End.Controllers
         {
             _logger = logger;
         }
+        //Haalt de view op voor het registreren van een nieuwe gebruiker
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
-
+        //Registreert een nieuwe gebruiker
+        [HttpPost]
         public IActionResult Register(RegisterVM vm)
         {
             UC.AddUser(vm.ToUser(), vm.Password);

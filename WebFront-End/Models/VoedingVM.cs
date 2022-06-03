@@ -1,20 +1,32 @@
-﻿using WeekplannerClassesLibrary;
+﻿using System.ComponentModel.DataAnnotations;
+using WeekplannerClassesLibrary;
 
 namespace WebFront_End.Models
 {
     public class VoedingVM
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public double Fat { get; set; }
+        [Required]        
         public double Carbohydrates { get; set; }
+        [Required]
         public double Sugar { get; set; }
+        [Required]        
         public double Fiber { get; set; }
+        [Required]
         public double Proteine { get; set; }
+        [Required]
         public double Calories { get; set; }
+        [Required]
         public double Weight { get; set; }
+        [Required]
         public string Type { get; set; }
+        [Required]
         public DateTime Date { get; set; }
+        [Required]
         public double Examplevalue { get; set; }
 
         public VoedingVM()

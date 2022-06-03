@@ -11,7 +11,14 @@ namespace DALmssqlServer
     public class TeamMSSQLDAL : ITeamContainer
     {
         Database db = new();
-        //Haalt de teams op van een specifieke gebruiker.
+        
+        /// <summary>
+        /// Haalt de teams op van een specifieke gebruiker.
+        /// </summary>
+        /// <param name="userid">Id van de gebruiker.</param>
+        /// <returns></returns>
+        /// <exception cref="TemporaryDalException"></exception>
+        /// <exception cref="PermanentDalException"></exception>
         public List<TeamDTO> GetTeamsFromUser(int userid)
         { 
             try
@@ -21,7 +28,7 @@ namespace DALmssqlServer
                 string query = "Select Id, Name, MaxMembers FROM Team INNER JOIN UserTeam ON team.Id = UserTeam.TeamId WHERE UserTeam.UserId = @userid";
                 SqlCommand command = new(query, db.conn);
                 command.Parameters.AddWithValue("@userid", userid);
-                AddTeamsToList(teams, command);
+                teams = AddTeamsToList(command);
                 db.EndConnection();
                 foreach (TeamDTO dto in teams)
                 {
@@ -38,7 +45,13 @@ namespace DALmssqlServer
                 throw new PermanentDalException("Fout in de applicatie,neem contact op met onze hulpdesk via twitter", exc.Message);
             }
         }
-        //Voegt de gebruiker toe aan het team.
+        /// <summary>
+        /// Voegt de gebruiker toe aan het team.
+        /// </summary>
+        /// <param name="userid">Id van de gebruiker.</param>
+        /// <param name="teamid">Id van het team.</param>
+        /// <exception cref="TemporaryDalException"></exception>
+        /// <exception cref="PermanentDalException"></exception>
         public void AddUserToTeam(int userid, int teamid)
         {
             try
@@ -60,7 +73,12 @@ namespace DALmssqlServer
                 throw new PermanentDalException("Fout in de applicatie,neem contact op met onze hulpdesk via twitter", exc.Message);
             }
         }
-        //Haalt alle teams op uit de database.
+        /// <summary>
+        /// Haalt alle teams uit de database op.
+        /// </summary>
+        /// <returns>All teams.</returns>
+        /// <exception cref="TemporaryDalException"></exception>
+        /// <exception cref="PermanentDalException"></exception>
         public List<TeamDTO> GetAllTeams() 
         {
             try 
@@ -69,7 +87,7 @@ namespace DALmssqlServer
                 db.MakeConnection();
                 string query = "SELECT * FROM Team";
                 SqlCommand command = new(query, db.conn);
-                AddTeamsToList(teams, command);
+                teams = AddTeamsToList(command);
                 db.EndConnection();
                 foreach (TeamDTO dto in teams)
                 {
@@ -86,7 +104,13 @@ namespace DALmssqlServer
                 throw new PermanentDalException("Fout in de applicatie,neem contact op met onze hulpdesk via twitter", exc.Message);
             }
         }
-        //Verwijdert de gebruiker uit het team.
+        /// <summary>
+        /// Verwijdert de gebruiker uit het team.
+        /// </summary>
+        /// <param name="userid">Id van de gebruiker.</param>
+        /// <param name="teamid">Id va het team die de gebruiker wilt verlaten.</param>
+        /// <exception cref="TemporaryDalException"></exception>
+        /// <exception cref="PermanentDalException"></exception>
         public void RemoveUserFromTeam(int userid, int teamid)
         {
             try 
@@ -108,22 +132,24 @@ namespace DALmssqlServer
                 throw new PermanentDalException("Fout in de applicatie,neem contact op met onze hulpdesk via twitter", exc.Message);
             }
         }
-        
 
-        private void AddTeamsToList(List<TeamDTO> teams, SqlCommand command)
+        // Zet de teams in een lijst en returned het.
+        private List<TeamDTO> AddTeamsToList(SqlCommand command)
         {
+            List<TeamDTO> teams = new();
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 teams.Add(ReadDTO(reader));
             }
+            return teams;
         }
-
+        // Leest een TeamDTO uit een reader.
         private TeamDTO ReadDTO(SqlDataReader reader)
         {
             return new TeamDTO(Convert.ToInt32(reader["Id"]), reader["Name"].ToString(), Convert.ToInt32(reader["MaxMembers"]));
         }
-
+        // Voegt de gebruikers van het team en returned deze.
         private List<UserDTO> AddUsersToTeam(int teamid)
         {
             try 
