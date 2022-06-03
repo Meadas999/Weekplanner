@@ -5,8 +5,14 @@ namespace DALmssqlServer
 {
     public class ActiviteitenMSSQLDAL : IActiviteitenContainer
     {
+        private readonly string connectionString;
         Database db = new();
 
+        public ActiviteitenMSSQLDAL(string cs)
+        {
+            connectionString = cs;
+        }
+        
         /// <summary>
         /// Deze methode voegt de activiteit met alleen een datum(dus zonder tijd) toe aan de database ,doormiddel van een ActiviteitDTO en een userid. 
         /// </summary>

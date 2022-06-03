@@ -8,10 +8,15 @@ namespace WebFront_End.Controllers
     public class ActivityController : Controller
     {
         private readonly ILogger<ActivityController> _logger;
-        private readonly ActiviteitContainer AC = new(new ActiviteitenMSSQLDAL());
-        public ActivityController(ILogger<ActivityController> logger)
+        private readonly IConfiguration _configuration;
+        private readonly ActiviteitContainer AC;
+        public ActivityController(ILogger<ActivityController> logger, IConfiguration ic)
         {
+            _configuration = ic;
             _logger = logger;
+            AC = new(
+                         new ActiviteitenMSSQLDAL(_configuration["db:connectionstring"]));
+
         }
         // Geeft een view door waar een nieuwe acitviteit aangemaakt kan worden.
         [HttpGet]

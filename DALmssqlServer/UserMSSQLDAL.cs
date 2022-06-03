@@ -10,8 +10,17 @@ using WeekplannerClassesLibrary;
 namespace DALmssqlServer
 {
     public class UserMSSQLDAL : IUserContainer
-    {
+    { 
+    
+        private readonly string connectionString;
         Database db = new();
+
+        public UserMSSQLDAL(string cs)
+        {
+            this.connectionString = cs;
+        }
+
+
         /// <summary>
         /// Voegt de gebruiker toe aan de database doormiddel van een UserDTO en een wachtwoord.
         /// Als er een probleem optreedt die wordt veroorzaakt 

@@ -8,10 +8,12 @@ namespace WebFront_End.Controllers
     public class RegisterController : Controller
     {
         private readonly ILogger<LogInController> _logger;
-        private UserContainer UC = new(new UserMSSQLDAL());        
+        private readonly IConfiguration _configuration;
+        private UserContainer UC;        
         public RegisterController(ILogger<LogInController> logger)
         {
             _logger = logger;
+            UC = new(new UserMSSQLDAL(_configuration["db:connectionstring"]));
         }
         //Haalt de view op voor het registreren van een nieuwe gebruiker
         [HttpGet]

@@ -10,11 +10,13 @@ namespace WebFront_End.Controllers
     public class LogInController : Controller
     {
         private readonly ILogger<LogInController> _logger;
+        private readonly IConfiguration _configuration;
         private UserContainer UC = new(new UserMSSQLDAL());
-        private ActiviteitContainer AC = new(new ActiviteitenMSSQLDAL());
+        private ActiviteitContainer AC ;
         public LogInController(ILogger<LogInController> logger)
         {
             _logger = logger;
+            AC = new(new ActiviteitenMSSQLDAL(_configuration["db:connectionstring"]));
         }
         [HttpGet]
         public ActionResult Index()

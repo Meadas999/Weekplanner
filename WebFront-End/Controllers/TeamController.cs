@@ -8,12 +8,15 @@ namespace WebFront_End.Controllers
     public class TeamController : Controller
     {
         private readonly ILogger<TeamController> _logger;
-        UserContainer UC = new(new UserMSSQLDAL());
-        TeamContainer TC = new(new TeamMSSQLDAL());
+        private readonly IConfiguration _configuration;
+        UserContainer UC;
+        TeamContainer TC;
 
         public TeamController(ILogger<TeamController> logger)
         {
             _logger = logger;
+            UC = new(new UserMSSQLDAL(_configuration["db:connectionstring"]));
+            TC = new(new TeamMSSQLDAL(_configuration["db:connectionstring"]));
         }
         //Haalt de homepage op van teams.
         [HttpGet]

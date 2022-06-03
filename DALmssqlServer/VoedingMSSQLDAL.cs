@@ -10,7 +10,15 @@ namespace DALmssqlServer
 {
     public class VoedingMSSQLDAL : IVoedingContainer
     {
-       Database db = new();
+        private readonly string connectionString;
+        Database db = new();
+
+        public VoedingMSSQLDAL(string cs)
+        {
+            this.connectionString = cs;
+        }
+
+
         /// <summary>
         /// Voegt een nieuwe voeding toe aan de database
         /// </summary>

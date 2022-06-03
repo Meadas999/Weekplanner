@@ -10,11 +10,13 @@ namespace WebFront_End.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _configuration;
         private UserContainer UC = new(new UserMSSQLDAL());
-        private ActiviteitContainer AC = new(new ActiviteitenMSSQLDAL());
+        private ActiviteitContainer AC;
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            AC = new(new ActiviteitenMSSQLDAL(_configuration["db:connectionstring"]));
         }
         //Haalt de homepage op van de gebruiker.
         [HttpGet]

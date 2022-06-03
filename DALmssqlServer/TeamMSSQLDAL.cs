@@ -11,6 +11,12 @@ namespace DALmssqlServer
     public class TeamMSSQLDAL : ITeamContainer
     {
         Database db = new();
+        private readonly string connectionString;
+        public TeamMSSQLDAL(string cs)
+        {
+            connectionString = cs;
+        }
+        
         
         /// <summary>
         /// Haalt de teams op van een specifieke gebruiker.

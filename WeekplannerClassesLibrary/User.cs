@@ -18,6 +18,7 @@ namespace WeekplannerClassesLibrary
         public List<Team> teams { get; set; } = new();
         public Team Team { get; set; } = new();
         public double BMI { get { return this.Weight / (this.Length * this.Length); } set { BMI = value; } }
+        
         public User(int userid, string firstname, string lastname, string email, DateTime birthdate, double weight, int length)
                     : base(userid, firstname, lastname, email, birthdate)
         {
@@ -47,12 +48,5 @@ namespace WeekplannerClassesLibrary
         {
             return new UserDTO(this.UserId, this.FirstName, this.LastName, this.Email, this.BirthDate, this.Weight, this.Length/*, this.activitys.Select(a => a.ToDTO()).ToList()*/);
         }
-
-
-
-
-
-
-
     }
 }

@@ -46,8 +46,5 @@ namespace WeekplannerClassesLibrary
             return new TeamDTO(this.Id, this.Name, this.MaxMembers);
         }
 
-
-
-
     }
 }
