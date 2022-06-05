@@ -12,8 +12,9 @@ namespace WebFront_End.Controllers
         UserContainer UC;
         TeamContainer TC;
 
-        public TeamController(ILogger<TeamController> logger)
+        public TeamController(ILogger<TeamController> logger, IConfiguration ic)
         {
+            _configuration = ic;
             _logger = logger;
             UC = new(new UserMSSQLDAL(_configuration["db:connectionstring"]));
             TC = new(new TeamMSSQLDAL(_configuration["db:connectionstring"]));

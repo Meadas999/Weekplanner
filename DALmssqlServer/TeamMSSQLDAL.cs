@@ -10,11 +10,10 @@ namespace DALmssqlServer
 {
     public class TeamMSSQLDAL : ITeamContainer
     {
-        Database db = new();
-        private readonly string connectionString;
+        Database db;
         public TeamMSSQLDAL(string cs)
         {
-            connectionString = cs;
+            db = new Database(cs);
         }
         
         

@@ -11,11 +11,12 @@ namespace WebFront_End.Controllers
         private readonly IConfiguration _configuration;
         UserContainer UC;
         VoedingContainer VC;
-        public VoedingController(ILogger<VoedingController> logger)
+        public VoedingController(ILogger<VoedingController> logger, IConfiguration ic)
         {
+            _configuration = ic;
             _logger = logger;
             UC = new(new UserMSSQLDAL(_configuration["db:connectionstring"]));
-            VC = new(new VoedingMSSQLDAL(_configuration["db:connectionstring"]))
+            VC = new(new VoedingMSSQLDAL(_configuration["db:connectionstring"]));
         }
         //Haalt de homepage view op van de voeding pagina
         [HttpGet]

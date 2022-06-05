@@ -5,12 +5,10 @@ namespace DALmssqlServer
 {
     public class ActiviteitenMSSQLDAL : IActiviteitenContainer
     {
-        private readonly string connectionString;
-        Database db = new();
-
+        Database db;
         public ActiviteitenMSSQLDAL(string cs)
         {
-            connectionString = cs;
+            db = new Database(cs);
         }
         
         /// <summary>

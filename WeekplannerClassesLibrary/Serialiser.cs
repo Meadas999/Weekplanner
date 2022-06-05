@@ -8,7 +8,6 @@ namespace WeekplannerClassesLibrary
 {
     public class Serialiser
     {
-
         public class Rootobject
         {
             public Databaseconfig DatabaseConfig { get; set; }

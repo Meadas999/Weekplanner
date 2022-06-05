@@ -9,9 +9,10 @@ namespace WebFront_End.Controllers
     {
         private readonly ILogger<LogInController> _logger;
         private readonly IConfiguration _configuration;
-        private UserContainer UC;        
-        public RegisterController(ILogger<LogInController> logger)
+        private UserContainer UC;
+        public RegisterController(ILogger<LogInController> logger, IConfiguration ic)
         {
+            _configuration = ic;
             _logger = logger;
             UC = new(new UserMSSQLDAL(_configuration["db:connectionstring"]));
         }

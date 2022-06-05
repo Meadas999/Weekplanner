@@ -14,8 +14,7 @@ namespace WebFront_End.Controllers
         {
             _configuration = ic;
             _logger = logger;
-            AC = new(
-                         new ActiviteitenMSSQLDAL(_configuration["db:connectionstring"]));
+            AC = new( new ActiviteitenMSSQLDAL(_configuration["db:connectionstring"]));
 
         }
         // Geeft een view door waar een nieuwe acitviteit aangemaakt kan worden.

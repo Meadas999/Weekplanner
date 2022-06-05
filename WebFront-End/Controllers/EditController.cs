@@ -11,11 +11,13 @@ namespace WebFront_End.Controllers
         private readonly ILogger<EditController> _logger;
         private readonly IConfiguration _configuration;
         private ActiviteitContainer AC;
-        public EditController(ILogger<EditController> logger)
+        public EditController(ILogger<EditController> logger, IConfiguration ic)
         {
+            _configuration = ic;
             _logger = logger;
             AC = new(new ActiviteitenMSSQLDAL(_configuration["db:connectionstring"]));
         }
+        
         //Geeft de pagina met de activiteiten die je wilt aanpassen terug.
         [HttpGet]
         public IActionResult Index(int id)
