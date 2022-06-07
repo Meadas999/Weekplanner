@@ -19,14 +19,32 @@ namespace WeekplannerClassesLibrary
         public double Calories { get; set; }
         public double Weight { get; set; }
         public string Type { get; set; }
-
+        public DateTime Date { get; set; }
+        /// <summary>
+        /// Instantieert een Voeding met lege properties.
+        /// </summary>
         public Voeding()
         {
 
         }
-        public Voeding(int id, string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue)
+        /// <summary>
+        /// Instantieert een voeding met de gegeven parameters.
+        /// </summary>
+        /// <param name="id">Id van de voeding.</param>
+        /// <param name="name">Naam van de voeding.</param>
+        /// <param name="fat">Aantal vet van de voeding.</param>
+        /// <param name="carbohydrates">Aantal carbs van de voeding.</param>
+        /// <param name="sugar">Aantal suiker in de voeding</param>
+        /// <param name="fiber">Aantal Vezels in de voeding.</param>
+        /// <param name="proteine"></param>
+        /// <param name="calories"></param>
+        /// <param name="weight"></param>
+        /// <param name="type"></param>
+        /// <param name="examplevalue"></param>
+        /// <param name="date"></param>
+        public Voeding(int id, string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue, DateTime date)
         {
-            double deelsom = examplevalue / weight;
+            double deelsom = weight / examplevalue;
             Id = id;
             Name = name;
             Fat = fat * deelsom;
@@ -37,11 +55,11 @@ namespace WeekplannerClassesLibrary
             Calories = calories * deelsom;
             Weight = weight;
             Type = type;
-
+            Date = date;
         }
-        public Voeding(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue)
+        public Voeding(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, double examplevalue, DateTime date)
         {
-            double deelsom = examplevalue / weight;
+            double deelsom =  weight / examplevalue;
             Name = name;
             Fat = fat * deelsom;
             Carbohydrates = carbohydrates * deelsom;
@@ -49,7 +67,9 @@ namespace WeekplannerClassesLibrary
             Fiber = fiber * deelsom;
             Proteine = proteine * deelsom;
             Calories = calories * deelsom;
-            
+            Weight = weight;
+            Type = type;
+            Date = date;
         }
         public Voeding(VoedingDTO dto)
         { 
@@ -63,10 +83,11 @@ namespace WeekplannerClassesLibrary
             Calories = dto.Calories;
             Weight = dto.Weight;
             Type = dto.Type;
+            Date = dto.Date;
         }
         public VoedingDTO ToDTO()
         {
-            return new VoedingDTO(Id, Name, Fat, Carbohydrates, Sugar, Fiber, Proteine, Calories, Weight, Type);
+            return new VoedingDTO(Id, Name, Fat, Carbohydrates, Sugar, Fiber, Proteine, Calories, Weight, Type, Date);
         }
         
         public override string ToString()

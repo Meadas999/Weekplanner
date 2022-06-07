@@ -1,0 +1,60 @@
+﻿@model UserVoedingVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Voeding van @Model.ToString()</h1>
+
+<body>
+    <div>
+        <table class="table table-hover table-borderless table-striped" id="mijnTeamTable">
+            <thead>
+                <tr>
+                    <th scope="col">Name:</th>
+                    <th scope="col">Fat:</th>
+                    <th scope="col">Carbohydrates:</th>
+                    <th scope="col">Sugar:</th>
+                    <th scope="col">Fiber:</th>
+                    <th scope="col">Proteine:</th>
+                    <th scope="col">Calories:</th>
+                    <th scope="col">Weight:</th>
+                    <th scope="col">Type:</th>
+                    <th scope="col">Date:</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (VoedingVM v in Model.Voedingen)
+                {
+                    <tr>
+                        <td>@v.Name</td>
+                        <td>@v.Fat</td>
+                        <td>@v.Carbohydrates</td>
+                        <td>@v.Sugar</td>
+                        <td>@v.Fiber</td>
+                        <td>@v.Proteine</td>
+                        <td>@v.Calories</td>
+                        <td>@v.Weight</td>
+                        <td>@v.Type</td>
+                        <td>@v.Date</td>
+                        <td>
+                            <form asp-controller="Voeding" asp-action=Edit asp-route-id=@v.Id>
+                                <input type="submit" value="Edit" class="btn btn-primary" />
+                            </form>
+                            <form asp-controller="Voeding" asp-action=Delete asp-route-id=@v.Id>
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <form asp-controller="Voeding" asp-action=Create method="post">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </form>
+    </div>
+</body>
+

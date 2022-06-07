@@ -5,7 +5,7 @@
 }
 
 <h1>Hello @Model.GetFullName()</h1>
-<form asp-controller="Activity" asp-action=Index method="post">
+<form asp-controller="Activity" asp-action=Index method="get">
     <input type="submit" value="Add Activity" class="btn btn-success" />
 </form>
 <div class="container border">
@@ -42,7 +42,7 @@
                 <p>@a.Date</p>
             </div>
             <div class="col">
-                <form asp-controller="Edit" asp-action=Index asp-route-id=@a.ID method="post">
+                <form asp-controller="Edit" asp-action=Index asp-route-id=@a.ID method="get">
                     <input type="submit" value="Edit" class="btn btn-primary" />
                 </form>
                 <form asp-controller="Home" asp-action=DeleteActivity asp-route-id=@a.ID method="post">

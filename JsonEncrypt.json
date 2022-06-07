@@ -1,0 +1,14 @@
+{
+  "DatabaseConfig": {
+    "Server": "mssqlstud.fhict.local",
+    "Database": "dbi457905_wplanner",
+    "User": "dbi457905_wplanner",
+    "Password": "Amier123!",
+    "ConnectionString": "Server=mssqlstud.fhict.local;Database=dbi457905_wplanner;User Id=dbi457905_wplanner;Password=Amier123!;"
+  },
+
+  "Defaults": {
+
+    "Standaardkleur":  "#0000000"
+  }
+}

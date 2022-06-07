@@ -7,24 +7,27 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using static WeekplannerClassesLibrary.Encrypter;
+using static WeekplannerClassesLibrary.Serialiser;
 namespace DALmssqlServer
 {
     public class Database
     {
-        public static string connectionString = File.ReadAllText(@"C:\Users\amier\OneDrive - Office 365 Fontys\S2\JsonEncrypt.json");
+        public static string connectionString;
         public SqlConnection? conn;
-        public Rootobject root;
+
+        public Database(string cs)
+        {
+            connectionString = cs;
+        }
 
         // Maakt verbinding met de database.
         public void MakeConnection()
         {
             try
             {
-                root = JsonSerializer.Deserialize<Rootobject>(connectionString);
-                if (root != null)
+                if (connectionString != null)
                 {
-                    conn = new SqlConnection(root.DatabaseConfig.ConnectionString);
+                    conn = new SqlConnection(connectionString);
                     conn.Open();
                     Console.WriteLine("Connected to database");
                 }

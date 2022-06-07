@@ -9,11 +9,17 @@ namespace WebFront_End.Controllers
     public class EditController : Controller
     {
         private readonly ILogger<EditController> _logger;
-        private ActiviteitContainer AC = new(new ActiviteitenMSSQLDAL());
-        public EditController(ILogger<EditController> logger)
+        private readonly IConfiguration _configuration;
+        private ActiviteitContainer AC;
+        public EditController(ILogger<EditController> logger, IConfiguration ic)
         {
+            _configuration = ic;
             _logger = logger;
+            AC = new(new ActiviteitenMSSQLDAL(_configuration["db:connectionstring"]));
         }
+        
+        //Geeft de pagina met de activiteiten die je wilt aanpassen terug.
+        [HttpGet]
         public IActionResult Index(int id)
         {
             try
@@ -33,6 +39,8 @@ namespace WebFront_End.Controllers
                 return View("PermanentError", exc);
             }
         }
+        //Verstuurt de nieuwe gegevens naar de database en gaat terug naar de index pagina van activiteiten.
+        [HttpPost]
         public IActionResult Return(ActiviteitVM vm)
         {
             try

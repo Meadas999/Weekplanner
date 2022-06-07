@@ -1,0 +1,63 @@
+﻿@model VoedingVM;
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit @Model.Name</h1>
+
+<form asp-controller="Voeding" asp-action=ReturnEdit>
+    <div>
+        <input asp-for=Id type="hidden" />
+    </div>
+    <div>
+        <label asp-for="Name">Name</label>
+        <input asp-for=Name placeholder = "@Model.Name" class="form-control" />
+    </div>
+
+    <div>
+        <label asp-for="Fat">Fat</label>
+        <input asp-for=Fat placeholder=@Model.Fat class="form-control" />
+    </div>
+
+    <div>
+        <label asp-for="Carbohydrates">Carbohydrates</label>
+        <input asp-for=Carbohydrates placeholder=@Model.Carbohydrates class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Sugar">Sugar</label>
+        <input asp-for=Sugar placeholder=@Model.Sugar class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Fiber">Fiber</label>
+        <input asp-for=Fiber placeholder=@Model.Fiber class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Proteine">Proteine</label>
+        <input asp-for=Proteine placeholder=@Model.Proteine class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Calories">Calories</label>
+        <input asp-for=Calories placeholder=@Model.Calories class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Weight">Weight</label>
+        <input asp-for=Weight placeholder=@Model.Weight class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Type">Type</label>
+        <input asp-for=Type placeholder="@Model.Type" class="form-control" />
+    </div>
+    
+    <div>
+        <label asp-for="Examplevalue">Examplevalue</label>
+        <input asp-for=Examplevalue class="form-control" />
+    </div>    
+    
+    <div>
+        <input asp-for=Date Type="hidden" class="form-control" value="@DateTime.Now" id="dateinput">
+    </div>
+    <div>
+        <input type="submit" value="Confirm" class="btn btn-primary" />
+    </div>
+    
+</form>

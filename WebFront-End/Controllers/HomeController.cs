@@ -10,12 +10,18 @@ namespace WebFront_End.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private UserContainer UC = new(new UserMSSQLDAL());
-        private ActiviteitContainer AC = new(new ActiviteitenMSSQLDAL());
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IConfiguration _configuration;
+        private UserContainer UC;
+        private ActiviteitContainer AC;
+        public HomeController(ILogger<HomeController> logger, IConfiguration ic)
         {
+            _configuration = ic;
             _logger = logger;
+            AC = new(new ActiviteitenMSSQLDAL(_configuration["db:connectionstring"]));
+            UC = new(new UserMSSQLDAL(_configuration["db:connectionstring"]));
         }
+        //Haalt de homepage op van de gebruiker.
+        [HttpGet]
         public IActionResult Index()
         {
             try
@@ -38,7 +44,9 @@ namespace WebFront_End.Controllers
                 return View("PermanentError", exc);
             }
         }
-
+        
+        //Verwijdert een activiteit.
+       [HttpPost]
         public IActionResult DeleteActivity(int id)
         {
             try
@@ -58,14 +66,5 @@ namespace WebFront_End.Controllers
                 return View("PermanentError", exc);
             }
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        
-        
-
-
     }
 }

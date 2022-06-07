@@ -1,0 +1,59 @@
+﻿@model UserTeamVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Teams</h1>
+
+<body>
+    <div>
+        @foreach (TeamVM team in Model.UserTeams)
+        {
+            <table class="table table-hover table-borderless table-striped" id="mijnTeamTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Team: @team.Name </th>
+                        <th scope="col">Occupation: @team.Members.Count().ToString()/@team.MaxMembers.ToString() </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (TeamUsersVM us in team.Members)
+                    {
+                        <tr><td>@us.ToString()</td></tr>
+                    }
+                </tbody>
+            </table>
+            <form asp-controller="Team" asp-action="LeaveTeam" asp-route-teamid=@team.Id asp-route-userid=@Model.Id method="post">
+                <button type="submit" class="btn btn-danger">Leave</button>
+            </form>
+        }
+
+
+        @foreach (TeamVM team in Model.AllTeams)
+        {
+            <table class="table table-hover table-borderless table-striped" id="mijnTeamTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Team: @team.Name </th>
+                        <th scope="col">Occupation: @team.Members.Count().ToString()/@team.MaxMembers.ToString() </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (TeamUsersVM us in team.Members)
+                    {
+                        <tr>
+                            <td>@us.ToString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if(!Model.UserTeams.Any(x => x.Id == team.Id) && team.Members.Count < team.MaxMembers)
+            {
+                <form asp-controller="Team" asp-action="JoinTeam" asp-route-teamid=@team.Id asp-route-userid=@Model.Id>
+                    <button type="submit" class="btn btn-success">Join</button>
+                </form>
+            }
+        }
+    </div>
+</body>
+

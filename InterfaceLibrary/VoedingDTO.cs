@@ -18,11 +18,13 @@ namespace InterfaceLibrary
         public double Calories { get; set; }
         public double Weight{ get; set; }
         public string Type { get; set; }
+        public DateTime Date { get; set; }
+        
 
         public VoedingDTO()
         {
         }
-        public VoedingDTO(int id, string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type)
+        public VoedingDTO(int id, string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, DateTime date)
         {
             Id = id;
             Name = name;
@@ -34,8 +36,9 @@ namespace InterfaceLibrary
             Calories = calories;
             Weight = weight;
             Type = type;
+            Date = date;
         }
-        public VoedingDTO(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type)
+        public VoedingDTO(string name, double fat, double carbohydrates, double sugar, double fiber, double proteine, double calories, double weight, string type, DateTime date)
         {
             Name = name;
             Fat = fat;
@@ -46,6 +49,7 @@ namespace InterfaceLibrary
             Calories = calories;
             Weight = weight;
             Type = type;
+            Date = date;
         }
     }
 }

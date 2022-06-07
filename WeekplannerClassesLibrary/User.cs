@@ -13,10 +13,12 @@ namespace WeekplannerClassesLibrary
 
         public double Weight { get; set; }
         public int Length { get; set; }
-        public List<Activiteit> activitys = new();
-        public List<Voeding> Voedingen = new();
-        public Team Team { get; set; }
+        public List<Activiteit> activitys { get; set; } = new();
+        public List<Voeding> Voedingen { get; set; } = new();
+        public List<Team> teams { get; set; } = new();
+        public Team Team { get; set; } = new();
         public double BMI { get { return this.Weight / (this.Length * this.Length); } set { BMI = value; } }
+        
         public User(int userid, string firstname, string lastname, string email, DateTime birthdate, double weight, int length)
                     : base(userid, firstname, lastname, email, birthdate)
         {
@@ -30,6 +32,12 @@ namespace WeekplannerClassesLibrary
             this.Length = userDTO.Length;
         }
 
+        public User(string firstname, string lastname) : base(firstname, lastname)
+        {
+            FirstName = firstname;
+            LastName = lastname;
+            
+        }
         public User(string firstname, string lastname, string email, DateTime birthdate, double weight, int length)
                     : base(firstname, lastname, email, birthdate)
         {
@@ -40,12 +48,5 @@ namespace WeekplannerClassesLibrary
         {
             return new UserDTO(this.UserId, this.FirstName, this.LastName, this.Email, this.BirthDate, this.Weight, this.Length/*, this.activitys.Select(a => a.ToDTO()).ToList()*/);
         }
-
-
-
-
-
-
-
     }
 }

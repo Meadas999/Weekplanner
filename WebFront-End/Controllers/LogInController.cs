@@ -10,13 +10,17 @@ namespace WebFront_End.Controllers
     public class LogInController : Controller
     {
         private readonly ILogger<LogInController> _logger;
-        private UserContainer UC = new(new UserMSSQLDAL());
-        private ActiviteitContainer AC = new(new ActiviteitenMSSQLDAL());
-        public LogInController(ILogger<LogInController> logger)
+        private readonly IConfiguration _configuration;
+        private UserContainer UC;
+        private ActiviteitContainer AC;
+        public LogInController(ILogger<LogInController> logger, IConfiguration ic)
         {
+            _configuration = ic;
             _logger = logger;
+            AC = new(new ActiviteitenMSSQLDAL(_configuration["db:connectionstring"]));
+            UC = new(new UserMSSQLDAL(_configuration["db:connectionstring"]));
         }
-
+        [HttpGet]
         public ActionResult Index()
         {
             UserLogInVM vm = new();
@@ -25,6 +29,8 @@ namespace WebFront_End.Controllers
         }
         //TODO: Use Uservm instead of strings as parameters.
         //TODO: Full name van Uservm in session. 
+
+        //Haalt de login page op.
         [HttpPost]
         public IActionResult Index(UserLogInVM vm)
         {

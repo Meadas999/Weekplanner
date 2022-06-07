@@ -6,4 +6,11 @@
 new tempusDominus.TempusDominus(document.getElementById('dateinput'),
     
     {}
-    );
+);
+function myFunction()
+{
+    var e = document.getElementById("dds");
+    return e;
+}
+
+
