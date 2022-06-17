@@ -46,7 +46,7 @@ namespace WeekplannerClassesLibrary
         }
         public UserDTO ToDTO()
         {
-            return new UserDTO(this.UserId, this.FirstName, this.LastName, this.Email, this.BirthDate, this.Weight, this.Length);
+            return new UserDTO(this.UserId, this.FirstName, this.LastName, this.Email, this.BirthDate, this.Weight, this.Length/*, this.activitys.Select(a => a.ToDTO()).ToList()*/);
         }
     }
 }

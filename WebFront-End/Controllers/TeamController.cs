@@ -19,7 +19,6 @@ namespace WebFront_End.Controllers
             UC = new(new UserMSSQLDAL(_configuration["db:connectionstring"]));
             TC = new(new TeamMSSQLDAL(_configuration["db:connectionstring"]));
         }
-        
         //Haalt de homepage op van teams.
         [HttpGet]
         public IActionResult Index()
@@ -27,10 +26,10 @@ namespace WebFront_End.Controllers
             try
             {
                 int userid = HttpContext.Session.GetInt32("UserId").Value;
-                UserTeamVM UTvm = new(UC.FindUserById(userid));
-                UTvm.UserTeams = new(TC.GetTeamsFromUser(userid).Select(x => new TeamVM(x)).ToList());
-                UTvm.AllTeams = new(TC.GetAllTeams().Select(x => new TeamVM(x)).ToList());
-                return View(UTvm);
+                UserTeamVM user = new(UC.FindUserById(userid));
+                user.UserTeams = new(TC.GetTeamsFromUser(userid).Select(x => new TeamVM(x)).ToList());
+                user.AllTeams = new(TC.GetAllTeams().Select(x => new TeamVM(x)).ToList());
+                return View(user);
             }
             catch (TemporaryDalException exc)
             {
@@ -39,6 +38,7 @@ namespace WebFront_End.Controllers
             }
             catch (PermanentDalException exc)
             {
+                //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
                 return View("PermanentError", exc);
             }
@@ -59,6 +59,7 @@ namespace WebFront_End.Controllers
             }
             catch (PermanentDalException exc)
             {
+                //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
                 return View("PermanentError", exc);
             }            
