@@ -5,23 +5,20 @@ namespace WebFront_End.Models
 {
     public class RegisterVM
     {
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "First name can only contain 50 characters.")]
-        [Required(ErrorMessage = "First name can not be empty.")]
+        [Required]
         public string? FirstName { get; set; }
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "Last name can only contain 50 characters.")]
-        [Required(ErrorMessage = "Last name can not be empty.")]
+        [Required]
         public string? LastName { get; set; }
-        [StringLength(50, MinimumLength = 10, ErrorMessage = "Password must contain atleast 10 characters.")]
-        [Required(ErrorMessage = "Password of atleast 10 characters is required.")]
+        [Required]
         public string? Password { get; set; }
-        [Required(ErrorMessage = "Email is required.")]
+        [Required]
         [EmailAddress]
         public string? Email { get; set; }
-        [Required(ErrorMessage = "Birth date is required.")]
+        [Required]
         public DateTime BirthDate { get; set; }
-        [Required(ErrorMessage = "Weight is required.")]
+        [Required]
         public double Weight { get; set; }
-        [Required(ErrorMessage = "Length is required.")]
+        [Required]
         public int Length { get; set; }
 
         public RegisterVM()
@@ -29,7 +26,7 @@ namespace WebFront_End.Models
 
         }
 
-        public RegisterVM(string firstName, string lastName, string password, string email,
+        public RegisterVM(string? firstName, string? lastName, string? password, string? email,
                           DateTime birthDate, double weight, int length)
         {
             FirstName = firstName;

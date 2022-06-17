@@ -35,6 +35,7 @@ namespace WebFront_End.Controllers
             }
             catch (PermanentDalException exc)
             {
+                //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
                 return View("PermanentError", exc);
             }
@@ -55,6 +56,7 @@ namespace WebFront_End.Controllers
             }
             catch (PermanentDalException exc)
             {
+                //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
                 return View("PermanentError", exc);
             }
@@ -95,6 +97,7 @@ namespace WebFront_End.Controllers
             }
             catch (PermanentDalException exc)
             {
+                //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
                 return View("PermanentError", exc);
             }
@@ -115,6 +118,7 @@ namespace WebFront_End.Controllers
             }
             catch (PermanentDalException exc)
             {
+                //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
                 return View("PermanentError", exc);
             }
@@ -134,6 +138,7 @@ namespace WebFront_End.Controllers
             }
             catch (PermanentDalException exc)
             {
+                //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
                 return View("PermanentError", exc);
             }

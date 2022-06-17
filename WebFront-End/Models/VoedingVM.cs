@@ -6,25 +6,25 @@ namespace WebFront_End.Models
     public class VoedingVM
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "Name can not be empty.")]
+        [Required]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Fat can not be empty.")]
+        [Required]
         public double Fat { get; set; }
-        [Required(ErrorMessage = "Carbohydrates can not be empty.")]
+        [Required]        
         public double Carbohydrates { get; set; }
-        [Required(ErrorMessage = "Sugar can not be empty.")]
+        [Required]
         public double Sugar { get; set; }
-        [Required(ErrorMessage = "Fiber can not be empty.")]
+        [Required]        
         public double Fiber { get; set; }
-        [Required(ErrorMessage = "Proteine can not be empty.")]
+        [Required]
         public double Proteine { get; set; }
-        [Required(ErrorMessage = "Calories can not be empty.")]
+        [Required]
         public double Calories { get; set; }
-        [Required(ErrorMessage = "Weight can not be empty.")]
+        [Required]
         public double Weight { get; set; }
-        [Required(ErrorMessage = "Type can not be empty.")]
+        [Required]
         public string Type { get; set; }
-        [Required(ErrorMessage = "Date can not be empty.")]
+        [Required]
         public DateTime Date { get; set; }
         [Required]
         public double Examplevalue { get; set; }

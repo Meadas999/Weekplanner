@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+      
 <form asp-controller="Edit" asp-action=Return method="post">
     <h1>Index</h1>
     <div>
@@ -10,7 +10,7 @@
     </div>
     <div>
         <label for="Name">Name</label>
-        <input asp-for=Name value="@Model.Name" class="form-control" />
+        <input asp-for=Name value= "@Model.Name" class="form-control" />
     </div>
 
     <div>
@@ -25,24 +25,10 @@
 
     <div>
         <label for="Date">Date</label>
-        <div class='input-group'
-             id='datetimepicker1'
-             data-td-target-input='nearest'
-             data-td-target-toggle='nearest'>
-            <input id='datetimepicker1Input'
-                   asp-for=Date
-                   type='text'
-                   class='form-control'
-                   data-td-target='#datetimepicker1'
-                   value=@DateTime.Now />
-            <span class='input-group-text'
-                  data-td-target='#datetimepicker1'
-                  data-td-toggle='datetimepicker'>
-                <span class='fa-solid fa-calendar'></span>
-            </span>
-        </div>
+         <div class="col-3">
+        <input asp-for=Date Type="text" class="form-control" placeholder="@Model.Date" id="dateinput">
     </div>
-
+        
     </div>
     <input type="submit" value="Confirm" class="btn btn-primary" />
 </form>

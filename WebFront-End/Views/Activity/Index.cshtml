@@ -23,21 +23,8 @@
 
     <div>
         <label for="Date">Date</label>
-        <div class='input-group'
-             id='datetimepicker1'
-             data-td-target-input='nearest'
-             data-td-target-toggle='nearest'>
-            <input id='datetimepicker1Input'
-                   asp-for=Date
-                   type='text'
-                   class='form-control'
-                   data-td-target='#datetimepicker1'
-                   value=@DateTime.Now />
-            <span class='input-group-text'
-                  data-td-target='#datetimepicker1'
-                  data-td-toggle='datetimepicker'>
-                <span class='fa-solid fa-calendar'></span>
-            </span>
+        <div class="col-3">
+            <input asp-for=Date Type="text" class="form-control" value="@DateTime.Now" id="dateinput">
         </div>
     </div>
     <br />

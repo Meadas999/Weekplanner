@@ -4,11 +4,10 @@ namespace WebFront_End.Models
 {
     public class UserLogInVM
     {
-        
+        [Required]
         [EmailAddress]
-        [Required(ErrorMessage = "Voer u e-mailadres in.")]
         public string? Email { get; set; } 
-        [Required(ErrorMessage = "Voer u wachtwoord in.")]
+        [Required]
         public string? Password { get; set; } 
         public bool Retry { get; set; }
 
