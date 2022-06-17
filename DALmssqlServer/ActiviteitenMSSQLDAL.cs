@@ -218,12 +218,12 @@ namespace DALmssqlServer
         {
             try
             {
-                List<ActiviteitDTO> list = new List<ActiviteitDTO>();
+                List<ActiviteitDTO> list = new();
                 db.MakeConnection();
                 string query = "SELECT * FROM Activity WHERE UserId = @userid ORDER BY Date DESC";
                 SqlCommand command = new(query, db.conn);
                 command.Parameters.AddWithValue("@userid", userid);
-                AddActivityToList(command);
+                list = AddActivityToList(command);
                 db.EndConnection();
                 return list;
             }

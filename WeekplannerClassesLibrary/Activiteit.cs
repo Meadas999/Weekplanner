@@ -16,8 +16,7 @@ namespace WeekplannerClassesLibrary
         public string Description { get; set; }
         public DateTime Date { get; set; }
 
-        //TODO: ADD A Start and End time
-        // also if there is enough time add reminder time
+   
 
         /// <summary>
         /// Maakt een activiteit aan op basis van de parameters.

@@ -21,21 +21,14 @@ namespace WeekplannerClassesLibrary
             container.AddActivityToUserWithDayOnly(id, activiteit.ToDTO());
         }
 
-        //public int GetAmountActivitysDay(User user, DateTime date)
-        //{
-        //    return container.GetAmountActivitysDay(user.ToDTO(), date);
-        //}
         
-        //Zet de parameters om in de juist instantie en voert de methode uit.
         public List<Activiteit> GetAllEvents(int id)
         {
-            return container.GetAllEvents(id).Select(x => new Activiteit(x)).ToList();
+            List<Activiteit> act = new();
+            act = container.GetAllEvents(id).Select(x => new Activiteit(x)).ToList();
+            return act;
         }
 
-        //public List<Activiteit> GetEventsInfoDay(User user, DateTime day)
-        //{ 
-        //    return container.GetEventsInfoDay(user.ToDTO(), day).Select(a => new Activiteit(a)).ToList();
-        //}
 
         //Zet de parameters om in de juist instantie en voert de methode uit.
         public void UpdateActivityWithDayOnly(Activiteit activiteit, int id)

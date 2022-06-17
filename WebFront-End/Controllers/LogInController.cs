@@ -23,6 +23,7 @@ namespace WebFront_End.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            HttpContext.Session.SetInt32("UserId", -1);
             UserLogInVM vm = new();
             vm.Retry = false;
             return View(vm);
@@ -57,10 +58,16 @@ namespace WebFront_End.Controllers
             }
             catch (PermanentDalException exc)
             {
-                //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
                 return View("PermanentError", exc);
             }
+        }
+        //Logt de gebruiker uit het systeem.
+        [HttpGet]
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "LogIn");
         }
     }
 }

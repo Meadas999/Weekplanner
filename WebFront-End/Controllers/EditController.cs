@@ -24,8 +24,15 @@ namespace WebFront_End.Controllers
         {
             try
             {
-                ActiviteitVM activiteit = new(AC.GetActivityById(id));
-                return View(activiteit);
+                if (HttpContext.Session.GetInt32("UserId").Value != -1)
+                {
+                    ActiviteitVM activiteit = new(AC.GetActivityById(id));
+                    return View(activiteit);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+                }
             }
             catch (TemporaryDalException exc)
             {
@@ -45,9 +52,16 @@ namespace WebFront_End.Controllers
         {
             try
             {
-                Activiteit activity = vm.ToActiviteit();
-                AC.UpdateActivityWithDayOnly(activity, HttpContext.Session.GetInt32("UserId").Value);
-                return RedirectToAction("Index", "Home");
+                if (HttpContext.Session.GetInt32("UserId").Value != -1)
+                {
+                    Activiteit activity = vm.ToActiviteit();
+                    AC.UpdateActivityWithDayOnly(activity, HttpContext.Session.GetInt32("UserId").Value);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+                }
             }
             catch (TemporaryDalException exc)
             {
@@ -56,7 +70,6 @@ namespace WebFront_End.Controllers
             }
             catch (PermanentDalException exc)
             {
-                //TODO: make view with feedback
                 _logger.LogError(exc, exc.Message);
                 return View("PermanentError", exc);
             }

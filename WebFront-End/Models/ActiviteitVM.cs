@@ -1,13 +1,17 @@
-﻿using WeekplannerClassesLibrary;
+﻿using System.ComponentModel.DataAnnotations;
+using WeekplannerClassesLibrary;
 
 namespace WebFront_End.Models
 {
     public class ActiviteitVM
     {
         public int ID { get; set; }
+        [Required(ErrorMessage ="Enter a valid type")]
         public string Type { get; set; }
+        [Required(ErrorMessage = "The name of the activity is required.")]
         public string Name { get; set; }
         public string Description { get; set; }
+        [Required(ErrorMessage = "The date is required.")]
         public DateTime Date { get; set; }
 
         public ActiviteitVM()

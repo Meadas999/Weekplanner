@@ -20,14 +20,43 @@ namespace WebFront_End.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                
+                return View();
+            }
+            catch (TemporaryDalException exc)
+            {
+                _logger.LogError(exc, exc.Message);
+                return View("TemporaryError", exc);
+            }
+            catch (PermanentDalException exc)
+            {
+                _logger.LogError(exc, exc.Message);
+                return View("PermanentError", exc);
+            }
         }
         //Registreert een nieuwe gebruiker
         [HttpPost]
         public IActionResult Register(RegisterVM vm)
         {
-            UC.AddUser(vm.ToUser(), vm.Password);
-            return RedirectToAction("Index", "LogIn");
+            try
+            {
+                UC.AddUser(vm.ToUser(), vm.Password);
+                return RedirectToAction("Index", "LogIn");
+            }
+            catch (TemporaryDalException exc)
+            {
+                _logger.LogError(exc, exc.Message);
+                return View("TemporaryError", exc);
+            }
+            catch (PermanentDalException exc)
+            {
+                //TODO: make view with feedback
+                _logger.LogError(exc, exc.Message);
+                return View("PermanentError", exc);
+            }
+
         }
     }
 }

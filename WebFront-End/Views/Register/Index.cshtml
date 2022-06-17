@@ -1,4 +1,6 @@
 ﻿@using WebFront_End.Models;
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @model RegisterVM;
 @{
     ViewData["Title"] = "Index";
@@ -14,42 +16,58 @@
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-                            <form method="post" asp-action="Register" asp-controller="Register">
-
+                            <form name="register" method="post" asp-action="Register" asp-controller="Register">
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
                                 <div class="form-outline mb-4">
-                                    <input type="text" asp-for="FirstName" id="form3Example1cg" class="form-control form-control-lg" />
+                                    <input type="text" asp-for="FirstName" id="Rspace" class="form-control form-control-lg" />
                                     <label class="form-label" for="form3Example1cdg">Your FirstName</label>
                                 </div>
-
+                                <span asp-validation-for="LastName" class="text-danger"></span>
                                 <div class="form-outline mb-4">
-                                    <input type="text" asp-for="LastName" id="form3Example1cg" class="form-control form-control-lg" />
+                                    <input type="text" asp-for="LastName" id="Rspace" class="form-control form-control-lg" />
                                     <label class="form-label" for="form3Example1cdg">Your LastName</label>
                                 </div>
-
+                                <span asp-validation-for="Email" class="text-danger"></span>
                                 <div class="form-outline mb-4">
-                                    <input type="email" asp-for="Email" id="form3Example3cg" class="form-control form-control-lg" />
+                                    <input type="email" asp-for="Email" id="Rspace" class="form-control form-control-lg" />
                                     <label class="form-label" for="form3Example3cdg">Your Email</label>
                                 </div>
-
+                                <span asp-validation-for="Password" class="text-danger"></span>
                                 <div class="form-outline mb-4">
-                                    <input type="password" asp-for="Password" id="form3Example4cg" class="form-control form-control-lg" />
+                                    <input type="password" asp-for="Password" id="Rspace" class="form-control form-control-lg" />
                                     <label class="form-label" for="form3Example4cdg">Password</label>
                                 </div>
-
-                                <div class="form-outline mb-4">
-
-                                    <input asp-for=BirthDate Type="text" class="form-control" placeholder="@DateTime.Now" 
-                                           id="dateinput" class="form-control form-control-lg"/> 
-                                    <label class="form-label" for="form3Example4cdg">Date of birth</label>
+                                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                                <div >
+                                    <div class='input-group'
+                                     id='datetimepicker1'
+                                     data-td-target-input='nearest'
+                                     data-td-target-toggle='nearest'>
+                                     <div class="form-outline mb-4">
+                                    <input id="Rspace" 
+                                           asp-for=BirthDate
+                                           type='text'
+                                           class='form-control form-control-lg'
+                                           data-td-target='#datetimepicker1'
+                                           placeholder="--/--/----" />
+                                           <label class="form-label" for="form3Example1cdg">Your birthdate</label>
+                                           </div>
+                                    <span class='input-group-text'
+                                          data-td-target='#datetimepicker1'
+                                          data-td-toggle='datetimepicker'>
+                                        <span class='fa-solid fa-calendar'></span>
+                                    </span>
+                                    </div>
                                 </div>
-                                
+
+                                <span asp-validation-for="Weight" class="text-danger"></span>
                                 <div class="form-outline mb-4">
-                                    <input type="text" asp-for="Weight" id="form3Example4cdg" class="form-control form-control-lg" />
+                                    <input type="text" asp-for="Weight" id="Rspace" class="form-control form-control-lg" />
                                     <label class="form-label" for="form3Example4cdg">Weight(in kg)</label>
                                 </div>
-
+                                <span asp-validation-for="Length" class="text-danger"></span>
                                 <div class="form-outline mb-4">
-                                    <input type="text" asp-for="Length" id="form3Example4cdg" class="form-control form-control-lg" />
+                                    <input type="text" asp-for="Length" id="Rspace" class="form-control form-control-lg" />
                                     <label class="form-label" for="form3Example4cdg">Length(in cm)</label>
                                 </div>
 
