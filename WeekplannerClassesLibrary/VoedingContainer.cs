@@ -9,32 +9,31 @@ namespace WeekplannerClassesLibrary
 {
     public class VoedingContainer
     {
-        private readonly IVoedingContainer Container;
+        private readonly IVoedingContainer container;
 
         public VoedingContainer(IVoedingContainer container)
         {
-            Container = container;
-        }
-        public void AddVoeding(Voeding voeding, int userid)
-        {
-            Container.AddVoeding(voeding.ToDTO(), userid);
-        }
-        public List<Voeding> GetAllVoedingFrUser(int userid)
-        {
-            return Container.GetAllVoedingFrUser(userid).Select(x => new Voeding(x)).ToList();
-        }
-        public void UpdateVoeding(Voeding v)
-        {
-            Container.UpdateVoeding(v.ToDTO());
-        }
-        public void DeleteVoeding(int id)
-        {
-            Container.DeleteVoeding(id);
+            this.container = container;
         }
 
-        public Voeding GetById(int id)
+        public void AddVoeding(Voeding voeding, int userid)
         {
-            return new Voeding(Container.GetById(id));
+            container.AddVoeding(voeding.ToDTO(), userid);
+        }
+
+        public List<Voeding> GetAllvoedingenFrUser(int userid)
+        {
+            return container.GetAllVoedingFrUser(userid).Select(v => new Voeding(v)).ToList();
+        }
+
+        public void UpdateVoeding(Voeding voeding)
+        {
+            container.UpdateVoeding(voeding.ToDTO());
+        }
+
+        public void DeleteVoeding(int id)
+        {
+            container.DeleteVoeding(id);
         }
     }
 }
